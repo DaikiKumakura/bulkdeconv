@@ -3,6 +3,8 @@
 Cell-type deconvolution of **tumor bulk RNA-seq** (human or mouse) through one
 function.
 
+[Documentation and function reference](https://daikikumakura.github.io/bulkdeconv/) · [Releases](https://github.com/DaikiKumakura/bulkdeconv/releases)
+
 ```r
 res <- bulkdeconv(df, expr = "tpm", species = "human", method = "quantiseq")
 res$score    # samples x cell types

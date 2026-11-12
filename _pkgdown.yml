@@ -1,4 +1,5 @@
 destination: _site
+url: https://daikikumakura.github.io/bulkdeconv/
 
 template:
   bootstrap: 5

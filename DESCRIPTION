@@ -15,7 +15,8 @@ Description: Runs published cell-type deconvolution and cell-abundance methods
     registration are included. Fifteen methods are implemented in the package
     itself.
 License: GPL-3
-URL: https://github.com/DaikiKumakura/bulkdeconv
+URL: https://daikikumakura.github.io/bulkdeconv/,
+    https://github.com/DaikiKumakura/bulkdeconv
 BugReports: https://github.com/DaikiKumakura/bulkdeconv/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
