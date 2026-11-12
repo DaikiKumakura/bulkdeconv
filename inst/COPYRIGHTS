@@ -1,0 +1,133 @@
+bulkdeconv is distributed under the GNU General Public License, version 3
+(https://www.gnu.org/licenses/gpl-3.0.html). It combines code under GPL (version 2 or later), GPL-3 and
+MIT, all of which can be distributed under version 3, the way the immunedeconv
+package declares the licence of the methods it collects. This file records where
+the code and data of the natively implemented methods come from.
+
+Fifteen methods are implemented in the package: abis, seqimmucc, base, timer,
+estimate, immucellai2, spatialdecon_safetme, immucellai_mouse, consensus_tme,
+xcell, mcp_counter, mmcp_counter, imsig, quantiseq and xcell2.
+
+The other methods are not part of this package: their original packages are
+installed separately into a private library and run in separate R processes
+(bulkdeconv_install()); their licences are listed in the registry
+(bulkdeconv_methods()$license) and reported when a method runs.
+
+CODE
+  R/native.R, R/native2.R and R/native3.R are ports of the algorithms below, written so that it gives the
+  same numbers as the original code. Sources:
+  - seq-ImmuCC LLSR: seqImmuCC_LLSR.R in omnideconv/immunedeconv (GPL-2),
+    stated there to be provided by the seq-ImmuCC authors.
+    Chen Z, et al. Front Immunol 2018, doi:10.3389/fimmu.2018.01286
+  - ABIS: server.R of the ABIS application (github.com/giannimonaco/ABIS),
+    in the form adapted in omnideconv/immunedeconv (GPL-2).
+    Monaco G, et al. Cell Rep 2019, doi:10.1016/j.celrep.2019.01.041
+  - BASE: code adapted from Varn FS, et al. Cancer Res 2017,
+    doi:10.1158/0008-5472.CAN-16-2490, in the form adapted in
+    omnideconv/immunedeconv (GPL-2). The cumulative sums are vectorised.
+  - TIMER: github.com/hanfeisun/TIMER (GPL-2.0), itself adapted from the
+    original TIMER source (cistrome.org/TIMER).
+    Li B, et al. Genome Biol 2016, doi:10.1186/s13059-016-1028-7
+    Constrained regression: Abbas AR, et al. PLoS One 2009.
+  - ESTIMATE: tidyestimate 1.1.1 (GPL >= 2; Aragaki K), which packages the
+    ESTIMATE algorithm of Yoshihara K, et al. Nat Commun 2013,
+    doi:10.1038/ncomms3612 (copyright holder of the ESTIMATE package: P. Roebuck).
+  - ImmuCellAI 2.0: R-package/ImmuCellAI2.0 of github.com/GuoBioinfoLab/ImmuCellAI-2.0
+    at commit 0135016 (MIT, Copyright (c) 2026 Jingmin Yang).
+  - SpatialDecon 1.20.1 (MIT, Copyright (c) 2021 NanoString Technologies, Inc.;
+    Danaher P, et al. Nat Commun 2022, doi:10.1038/s41467-022-28020-5), with the
+    objective and gradient of logNormReg::lognlm() (GPL; Muggeo VMR) written out
+    following that package, for the log-normal least-squares fit.
+  - ImmuCellAI-mouse 0.1.5: github.com/BioInfoCloud/ImmuCellAI_mouse at commit
+    b9fc2e7 (MIT, Copyright (c) 2025 Yun Sen; Miao Y-R, et al. Adv Sci 2023,
+    doi:10.1002/advs.202300878).
+  - ConsensusTME 0.0.1.9000 (GPL-3; Jimenez-Sanchez A, et al. Cancer Res 2019,
+    doi:10.1158/0008-5472.CAN-18-3711), github.com/cansysbio/ConsensusTME at 6e14ba3.
+  - xCell 1.1.0 (GPL-3; Aran D, et al. Genome Biol 2017, doi:10.1186/s13059-017-1349-1),
+    github.com/dviraran/xCell at 20e2919.
+  - xCell2 1.2.3 (GPL >= 3; Almog Angel and Dvir Aran), Bioconductor 3.22,
+    commit 38ae014; inference only, in R/xcell2.R. The rank normalisation
+    follows Foroutan M, et al. BMC Bioinformatics 2018,
+    doi:10.1186/s12859-018-2435-4.
+  - MCPcounter 1.2.0 (GPL-3; Becht E, et al. Genome Biol 2016, doi:10.1186/s13059-016-1070-5),
+    github.com/ebecht/MCPcounter at b6eac73 (marker table from Signatures/genes.txt).
+  - mMCP-counter 1.1.0 (GPL-3; Petitprez F, et al. Genome Med 2020,
+    doi:10.1186/s13073-020-00783-w), github.com/cit-bioinfo/mMCP-counter at cec6971.
+  - imsig 1.1.3 (GPL-3; Nirmal AJ, et al. Cancer Immunol Res 2018,
+    doi:10.1158/2326-6066.CIR-17-0568).
+  - quantiseqr 1.18.0 (GPL-3; Federico A, Ponzoni L, Marini F), the R implementation of
+    quanTIseq (Finotello F, et al. Genome Med 2019, doi:10.1186/s13073-019-0638-6); the
+    constrained least squares uses the quadprog package.
+  - ssGSEA follows Barbie DA, et al. Nature 2009 and Hanzelmann S, et al. BMC
+    Bioinformatics 2013 and is checked against GSVA; the non-negative least
+    squares routine follows Lawson & Hanson (1974).
+  immunedeconv: Sturm G, Finotello F, et al. Bioinformatics 2019;
+  Merotto L, et al. Bioinform Adv 2024. It is not installed or called by
+  bulkdeconv; data-raw/make_fixtures.R uses it once to record the expected
+  output of the original implementations for the tests.
+
+DATA (inst/extdata/, built by data-raw/build_extdata.R. The first six files are taken
+from omnideconv/immunedeconv at commit e625e6c28ed14a30f9f40f159925cc9f0df4fa49;
+the rest from the packages named, at the versions named.)
+  seqimmucc/sig_matr_seqImmuCC.txt   signature matrix of seq-ImmuCC.
+  abis/sigmatrixRNAseq.txt           ABIS RNA-seq signature matrix.
+  base/compendium.rds                BASE mouse cell compendium (up/down
+                                     weight sets). Rounded to 6 decimals
+                                     (largest change 5e-7) and stored
+                                     xz-compressed to reduce its size.
+  base/cell_correspondance.txt       mapping of compendium samples to cell types.
+  timer/immune_reference.rds         curated immune-cell expression reference
+                                     of TIMER (public sorted-cell expression
+                                     profiles).
+  timer/markers_by_cancer.rds        TIMER marker genes per cancer type, the 32
+                                     precalculated files as one list.
+  estimate/estimate_data.rds         ESTIMATE common genes and the stromal and
+                                     immune signatures, from tidyestimate 1.1.1.
+  spatialdecon/safeTME.rds           SAFE-TME cell-profile matrix, from
+                                     SpatialDecon 1.20.1.
+  immucellai_mouse/reference.rds     marker expression, marker lists and
+                                     correction matrices, from ImmuCellAI-mouse.
+  consensus_tme/gene_sets.rds        ConsensusTME consensus gene sets (TCGA types
+                                     and unfiltered).
+  xcell/xcell_data.rds               xCell signatures (489), gene list, fitted
+                                     transformation parameters, spill-over matrix.
+  xcell2/*.rds                       Nine pre-trained references from xCell2
+                                     1.2.3, extracted by data-raw/build_xcell2.R.
+                                     Preset names and origins are in the registry;
+                                     LM22 is trained on the Newman et al. reference.
+  mcp_counter/markers.rds            MCP-counter marker genes (genes.txt).
+  mmcp_counter/signatures_GCRm39.rds mMCP-counter signatures (GCRm39).
+  imsig/sig.rds                      ImSig signature genes per cell type.
+  quantiseq/til10.rds                TIL10 signature matrix, mRNA scaling, genes to
+                                     remove, and the HGNC table (2017-04-18) used to
+                                     re-annotate gene symbols; from quantiseqr.
+  immucellai2/reference_markers.rds  the 53-state reference restricted to the
+                                     5510 marker genes (the package reads a 41 MB
+                                     text file and keeps these rows), and the
+                                     marker list; from ImmuCellAI 2.0.
+
+  All reference files listed above are part of the source distribution. They
+  are distributed as published and as already distributed in immunedeconv and
+  xCell2, with attribution to their authors.
+
+MIT LICENCE TEXT for the code ported from ImmuCellAI 2.0 (Copyright (c) 2026
+Jingmin Yang), SpatialDecon (Copyright (c) 2021 NanoString Technologies, Inc.)
+and ImmuCellAI-mouse (Copyright (c) 2025 Yun Sen):
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.

@@ -1,0 +1,14 @@
+^\.git$
+^\.github$
+^\.gitattributes$
+^.*\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^data-raw$
+^validation$
+^bulkdeconv\.Rcheck$
+^bulkdeconv_.*\.tar\.gz$
+^docs$
+^AGENTS\.md$
+^_pkgdown\.yml$
+^_site$

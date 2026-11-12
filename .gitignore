@@ -1,0 +1,9 @@
+.Rproj.user
+.Rhistory
+.RData
+.DS_Store
+*.Rcheck/
+bulkdeconv_*.tar.gz
+/_site/
+/docs/
+/AGENTS.md

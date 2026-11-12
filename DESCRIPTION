@@ -1,0 +1,41 @@
+Package: bulkdeconv
+Type: Package
+Title: Cell-Type Deconvolution of Tumor Bulk RNA-Seq Through One Function
+Version: 0.1.0
+Authors@R: person("Daiki", "Kumakura", role = c("aut", "cre"),
+    email = "55353329+DaikiKumakura@users.noreply.github.com")
+Description: Runs published cell-type deconvolution and cell-abundance methods
+    for bulk RNA-seq of tumor tissue (human or mouse) through a single
+    function, bulkdeconv(data, expr, species, method). Each method runs in a
+    separate R process from its own isolated library at a pinned version, so
+    methods with conflicting dependencies can coexist. Input is checked
+    before anything runs, a registry records what each method needs and how
+    its output can be compared, and results come back in one standard layout
+    with metadata and quality information. Only methods that need no
+    registration are included. Fifteen methods are implemented in the package
+    itself.
+License: GPL-3
+URL: https://github.com/DaikiKumakura/bulkdeconv
+BugReports: https://github.com/DaikiKumakura/bulkdeconv/issues
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Depends:
+    R (>= 4.1.0)
+Imports:
+    BiocParallel,
+    callr (>= 3.7.0),
+    MASS,
+    quadprog,
+    sva,
+    tools,
+    utils
+Suggests:
+    BiocManager,
+    GSVA,
+    pracma,
+    remotes,
+    testthat (>= 3.0.0),
+    withr
+biocViews: Software, GeneExpression, Transcriptomics
+Config/testthat/edition: 3

@@ -1,0 +1,11 @@
+destination: _site
+
+template:
+  bootstrap: 5
+
+reference:
+  - title: Run and install methods
+    contents:
+      - bulkdeconv
+      - bulkdeconv_methods
+      - bulkdeconv_install

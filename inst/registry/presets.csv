@@ -1,0 +1,10 @@
+method,preset,species,platform,tissue,default,n_outputs_measured,runtime_s,shared_gene_fraction_on_test_data,run_status_multi,run_status_duplicated
+xcell2,TMECompendium,human,RNA-seq (TPM),tumour,yes,25,10.4,>=0.9,ok,ok
+xcell2,PanCancer,human,scRNA-seq (counts),tumour,,25,11.3,>=0.9,ok,ok
+xcell2,ImmuneCompendium,human,RNA-seq (TPM),immune/blood,,40,24.6,>=0.9,ok,ok
+xcell2,BlueprintEncode,human,RNA-seq (TPM),mixed,,43,33.2,>=0.9,ok,ok
+xcell2,LM22,human,microarray (RMA),mixed; LM22 originates from CIBERSORT (non-commercial),,22,7.6,>=0.9,ok,ok
+xcell2,TabulaSapiensBlood,human,scRNA-seq (counts),"blood, lymph node, spleen, thymus, bone marrow",,21,6.7,0.75,ok,ok
+xcell2,MouseRNAseqData,mouse,RNA-seq (TPM),mixed,yes,18,6.9,0.83,ok,ok
+xcell2,ImmGenData,mouse,microarray (RMA),immune/blood,,19,7.4,0.85,ok,ok
+xcell2,TabulaMurisBlood,mouse,scRNA-seq (counts),"bone marrow, spleen, thymus",,6,1,0.88,ok,ok
