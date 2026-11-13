@@ -12,3 +12,4 @@
 ^AGENTS\.md$
 ^_pkgdown\.yml$
 ^_site$
+^CITATION\.cff$

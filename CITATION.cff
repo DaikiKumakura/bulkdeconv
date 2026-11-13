@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "bulkdeconv: Cell-Type Deconvolution of Tumor Bulk RNA-Seq Through One Function"
+authors:
+  - family-names: Kumakura
+    given-names: Daiki
+    orcid: "https://orcid.org/0000-0001-9859-0720"
+version: "0.1.0"
+date-released: "2026-11-12"
+repository-code: "https://github.com/DaikiKumakura/bulkdeconv"
+url: "https://daikikumakura.github.io/software/bulkdeconv.html"
+license: GPL-3.0-only
+abstract: >-
+  An R package that estimates cell-type composition or abundance from human and mouse tumor bulk RNA-seq through one function, bulkdeconv(data, expr, species, method). It provides 18 published methods; 15 are implemented in the package and run after installation, and 3 use their upstream packages. Each method reports its scores, metadata and quality-control information, and the interpretation of the scores depends on the method.
+keywords:
+  - "RNA-seq"
+  - "cell-type deconvolution"
+  - "tumor microenvironment"
+  - "immune infiltration"
+  - "R package"
