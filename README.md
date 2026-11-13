@@ -12,8 +12,9 @@ res$score    # samples x cell types
 
 ## Input
 
-`df` is the table `rsemverse::rsem_read()` returns: the **first column is the
-gene symbol**, every other column is one sample (count or TPM).
+`df` is a table with one gene symbol per row and one column per sample (count
+or TPM): the **first column is the gene symbol**, or the symbols are the row
+names, as in the table `rsemverse::rsem_read()` returns.
 
 | gene   | S1   | S2   |
 |--------|------|------|
