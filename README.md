@@ -1,5 +1,7 @@
 # bulkdeconv
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24210482.svg)](https://doi.org/10.5281/zenodo.24210482)
+
 Cell-type deconvolution of **tumor bulk RNA-seq** (human or mouse) through one
 function.
 
@@ -115,6 +117,11 @@ from the same cohort for relative comparisons.
   `sources.csv`); field definitions in `inst/registry/README.md`.
 * `data-raw/`: script that builds the registry from the smoke-test results.
 * `validation/`: scripts and report of the 2026-11-11 installation and smoke test.
+
+## Related
+
+- [bulkdeconv on the author's site](https://daikikumakura.github.io/software/bulkdeconv.html): summary, status and links.
+- Sibling packages: [rsemflow](https://daikikumakura.github.io/software/rsemflow.html) (RSEM pipeline) and [rsemverse](https://daikikumakura.github.io/software/rsemverse.html) (RSEM table handling).
 
 ## Licence
 
