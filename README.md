@@ -163,8 +163,8 @@ the original implementations. On a clean installation from GitHub, all 15 ran
 without any extra step, and EPIC, DCQ and SSMD ran after
 `bulkdeconv_install()`. R CMD check passes on Linux, macOS and Windows in CI.
 Sources, licences and the few deliberate differences from the originals are
-listed in [`inst/COPYRIGHTS`](inst/COPYRIGHTS) and the registry
-([`inst/registry/`](inst/registry/)).
+listed in [`inst/COPYRIGHTS`](https://github.com/DaikiKumakura/bulkdeconv/blob/main/inst/COPYRIGHTS) and the registry
+([`inst/registry/`](https://github.com/DaikiKumakura/bulkdeconv/tree/main/inst/registry)).
 
 ## Related tools
 
@@ -177,11 +177,11 @@ listed in [`inst/COPYRIGHTS`](inst/COPYRIGHTS) and the registry
 
 Cite the archived version: <https://doi.org/10.5281/zenodo.24210482>, and the
 method you used: its source is listed in `bulkdeconv_methods()` and
-[`inst/COPYRIGHTS`](inst/COPYRIGHTS).
+[`inst/COPYRIGHTS`](https://github.com/DaikiKumakura/bulkdeconv/blob/main/inst/COPYRIGHTS).
 
 ## Licence
 
 GPL-3. The built-in methods are ports of published code (GPL-2 or later,
-GPL-3, MIT); sources are in [`inst/COPYRIGHTS`](inst/COPYRIGHTS). The three
+GPL-3, MIT); sources are in [`inst/COPYRIGHTS`](https://github.com/DaikiKumakura/bulkdeconv/blob/main/inst/COPYRIGHTS). The three
 separately installed methods keep their own licences, which the registry lists
 and which are reported when a method runs.
