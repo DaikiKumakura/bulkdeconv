@@ -10,7 +10,7 @@ Description: Runs 19 published cell-type deconvolution and cell-abundance
     implemented in the package, reproduce the output of the original
     implementations and run after installation, with their reference data
     included. The other four, including BayesPrism with bundled
-    references for four mouse tumor models, run from their original packages, installed
+    references for 23 mouse tumor models, run from their original packages, installed
     once into a private library and run each in its own R process. Input is
     checked before anything runs, a registry records what each method needs
     and how its output can be compared, and results come back in one standard

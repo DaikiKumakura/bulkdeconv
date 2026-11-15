@@ -19,7 +19,8 @@
 #' @param ... Method-specific options, named: `preset` (xcell2),
 #'   `cancer_type` (consensus_tme; required for timer), `tissue` (immucellai2,
 #'   ssmd), `n_permutations` and `seed` (base), `model` (required), `n_cores`
-#'   and `seed` (bayesprism; models: B16F10, MC38, CT26, LLC). Unknown or
+#'   and `seed` (bayesprism; 23 tumor models listed in
+#'   `inst/registry/bayesprism_models.csv`). Unknown or
 #'   invalid options are errors.
 #' @details
 #' Use [bulkdeconv_methods()] to check the input scale, minimum sample count

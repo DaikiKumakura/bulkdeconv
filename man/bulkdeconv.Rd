@@ -24,7 +24,8 @@ The wrong one is refused with a message that says so.}
 \item{...}{Method-specific options, named: \code{preset} (xcell2),
 \code{cancer_type} (consensus_tme; required for timer), \code{tissue} (immucellai2,
 ssmd), \code{n_permutations} and \code{seed} (base), \code{model} (required), \code{n_cores}
-and \code{seed} (bayesprism; models: B16F10, MC38, CT26, LLC). Unknown or
+and \code{seed} (bayesprism; 23 tumor models listed in
+\code{inst/registry/bayesprism_models.csv}). Unknown or
 invalid options are errors.}
 }
 \value{
