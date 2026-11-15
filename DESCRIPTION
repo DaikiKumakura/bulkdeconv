@@ -4,16 +4,17 @@ Title: Cell-Type Deconvolution of Tumor Bulk RNA-Seq Through One Function
 Version: 0.1.0
 Authors@R: person("Daiki", "Kumakura", role = c("aut", "cre"),
     email = "55353329+DaikiKumakura@users.noreply.github.com")
-Description: Runs published cell-type deconvolution and cell-abundance methods
-    for bulk RNA-seq of tumor tissue (human or mouse) through a single
-    function, bulkdeconv(data, expr, species, method). Each method runs in a
-    separate R process from its own isolated library at a pinned version, so
-    methods with conflicting dependencies can coexist. Input is checked
-    before anything runs, a registry records what each method needs and how
-    its output can be compared, and results come back in one standard layout
-    with metadata and quality information. Only methods that need no
-    registration are included. Fifteen methods are implemented in the package
-    itself.
+Description: Runs 18 published cell-type deconvolution and cell-abundance
+    methods for bulk RNA-seq of tumor tissue (human or mouse) through a single
+    function, bulkdeconv(data, expr, species, method). Fifteen methods are
+    implemented in the package, reproduce the output of the original
+    implementations and run after installation, with their reference data
+    included. The other three run from their original packages, installed
+    once into a private library and run each in its own R process. Input is
+    checked before anything runs, a registry records what each method needs
+    and how its output can be compared, and results come back in one standard
+    layout with metadata and quality information. Only methods that need no
+    registration are included.
 License: GPL-3
 URL: https://daikikumakura.github.io/bulkdeconv/,
     https://github.com/DaikiKumakura/bulkdeconv

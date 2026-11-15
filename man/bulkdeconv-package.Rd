@@ -5,9 +5,34 @@
 \alias{bulkdeconv-package}
 \title{bulkdeconv: cell-type deconvolution of tumor bulk RNA-seq through one function}
 \description{
-\code{bulkdeconv(data, expr, species, method)} runs one of the methods in
-\code{\link[=bulkdeconv_methods]{bulkdeconv_methods()}} on a gene-by-sample table. Install the method
-packages once with \code{\link[=bulkdeconv_install]{bulkdeconv_install()}}.
+bulkdeconv runs 18 published cell-type deconvolution and cell-abundance
+methods for human and mouse tumor bulk RNA-seq through one call, and
+returns the same kind of result for all of them.
+}
+\section{Workflow}{
+
+\enumerate{
+\item \code{\link[=bulkdeconv_methods]{bulkdeconv_methods()}} lists the methods with species, input scale,
+minimum number of samples, output kind and licence.
+\item \code{\link[=bulkdeconv]{bulkdeconv()}} runs one method on a gene symbol by sample table (TPM;
+counts for \code{seqimmucc}) and returns \code{score} (samples x cell types),
+\code{metadata} (what the numbers are and what may be compared) and \code{qc}.
+}
+
+Fifteen methods are implemented in the package and run after installing
+it; their reference data come with the package. EPIC, DCQ and SSMD run
+from their original packages: install them once with
+\code{\link[=bulkdeconv_install]{bulkdeconv_install()}} into a private library.
+}
+
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://daikikumakura.github.io/bulkdeconv/}
+  \item \url{https://github.com/DaikiKumakura/bulkdeconv}
+  \item Report bugs at \url{https://github.com/DaikiKumakura/bulkdeconv/issues}
+}
+
 }
 \author{
 \strong{Maintainer}: Daiki Kumakura \email{55353329+DaikiKumakura@users.noreply.github.com}

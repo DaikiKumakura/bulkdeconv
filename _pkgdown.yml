@@ -4,8 +4,15 @@ url: https://daikikumakura.github.io/bulkdeconv/
 template:
   bootstrap: 5
 
+home:
+  title: "bulkdeconv: cell-type deconvolution of tumor bulk RNA-seq"
+  description: >-
+    18 published cell-type deconvolution methods for human and mouse tumor
+    bulk RNA-seq through one R function, 15 of them built in.
+
 reference:
   - title: Run and install methods
+    desc: "Choose a method, run it, and install the three that need their original packages."
     contents:
       - bulkdeconv
       - bulkdeconv_methods
