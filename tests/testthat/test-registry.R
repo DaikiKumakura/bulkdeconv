@@ -65,5 +65,5 @@ test_that("native methods need nothing beyond the packages bulkdeconv itself imp
   imports <- read.dcf(system.file("DESCRIPTION", package = "bulkdeconv"), "Imports")[1L]
   for (p in used) expect_match(imports, p, fixed = TRUE)
   expect_true(all(nat$installed))
-  expect_setequal(reg$method[reg$engine == "external"], c("epic", "dcq", "ssmd"))
+  expect_setequal(reg$method[reg$engine == "external"], c("epic", "dcq", "ssmd", "bayesprism"))
 })
