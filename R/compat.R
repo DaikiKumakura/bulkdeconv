@@ -45,6 +45,11 @@ bd_check_method <- function(row, species, expr, n_samples, opts) {
   if (identical(m, "abis")) {
     plan$warnings <- c(plan$warnings, "ABIS signatures come from sorted blood cells, not tumor tissue.")
   }
+  if (identical(m, "bayesprism")) {
+    plan$warnings <- c(plan$warnings, paste0(
+      "BayesPrism samples a Gibbs chain for each sample (several minutes per run; option `n_cores`). ",
+      "Cell types missing from the reference are counted as other types."))
+  }
   if (identical(m, "ssmd")) {
     plan$warnings <- c(plan$warnings, "SSMD has no declared licence; check the authors' terms before redistributing results.")
   }
@@ -80,6 +85,10 @@ bd_option_spec <- function(method, species) {
     ssmd = list(tissue = list(default = "Inflammatory",
                               values = c("Inflammatory", "Central Nervous System",
                                          "Hematopoietic System", "Blood"))),
+    bayesprism = list(
+      model = list(default = NULL, values = bd_read_registry("bayesprism_models.csv")$model),
+      n_cores = list(default = 1L, range = c(1L, 64L)),
+      seed = list(default = 1L, range = c(0L, 1000000L))),
     list())
 }
 

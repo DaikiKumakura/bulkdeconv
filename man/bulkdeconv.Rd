@@ -14,7 +14,7 @@ every sample must contain at least one nonzero value.}
 
 \item{expr}{\code{"count"} or \code{"tpm"}: the scale of the values in \code{data}.
 Each method accepts one scale (see \code{expr_accepted} in
-\code{\link[=bulkdeconv_methods]{bulkdeconv_methods()}}): \code{"count"} for seqimmucc, \code{"tpm"} for the others.
+\code{\link[=bulkdeconv_methods]{bulkdeconv_methods()}}): \code{"count"} for seqimmucc and bayesprism, \code{"tpm"} for the others.
 The wrong one is refused with a message that says so.}
 
 \item{species}{\code{"human"} or \code{"mouse"}.}
@@ -23,7 +23,9 @@ The wrong one is refused with a message that says so.}
 
 \item{...}{Method-specific options, named: \code{preset} (xcell2),
 \code{cancer_type} (consensus_tme; required for timer), \code{tissue} (immucellai2,
-ssmd), \code{n_permutations} and \code{seed} (base). Unknown or invalid options are errors.}
+ssmd), \code{n_permutations} and \code{seed} (base), \code{model} (required), \code{n_cores}
+and \code{seed} (bayesprism; models: B16F10, MC38, CT26, LLC). Unknown or
+invalid options are errors.}
 }
 \value{
 An object of class \code{bulkdeconv_result}, a list with

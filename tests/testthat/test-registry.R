@@ -1,9 +1,9 @@
-test_that("the registry loads and holds the 18 usable methods", {
+test_that("the registry loads and holds the 19 usable methods", {
   reg <- bulkdeconv_methods()
   expect_setequal(reg$method, c(
     "quantiseq", "mcp_counter", "xcell", "estimate", "consensus_tme", "immucellai2", "imsig",
     "spatialdecon_safetme", "epic", "xcell2", "abis", "timer", "mmcp_counter", "dcq",
-    "immucellai_mouse", "ssmd", "seqimmucc", "base"))
+    "immucellai_mouse", "ssmd", "seqimmucc", "base", "bayesprism"))
   expect_type(reg$installed, "logical")
 })
 

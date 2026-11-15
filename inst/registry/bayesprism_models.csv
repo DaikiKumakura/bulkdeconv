@@ -1,0 +1,5 @@
+"model","status","states","genes","cells","cell_types","source","cross_rmse_malignant"
+"B16F10","validated",32,14600,5990,"CD4_Tconv|CD4_Treg|CD8_T_cells|cDC|Fibroblasts|Mono_Mac|Monocytes|pDC|TAMs|Tumor","GSE310560","0.007"
+"MC38","validated",28,14317,5532,"CD4_Tconv|CD4_Treg|CD8_T_cells|cDC|Fibroblasts|Mono_Mac|Monocytes|TAMs|Tumor","GSE310560","0.077"
+"CT26","validated",27,14507,9718,"CD4_Tconv|CD4_Treg|CD8_T_cells|cDC|Fibroblasts|Mono_Mac|Monocytes|pDC|TAMs|Tumor","GSE310560","0.098"
+"LLC","validated",32,14216,6505,"CD4_Tconv|CD4_Treg|CD8_T_cells|cDC|Fibroblasts|Mono_Mac|Monocytes|pDC|TAMs|Tumor","GSE310560","0.039"

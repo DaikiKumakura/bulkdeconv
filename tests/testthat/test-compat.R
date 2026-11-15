@@ -51,7 +51,7 @@ test_that("options are validated and defaulted", {
   expect_error(bulkdeconv:::bd_check_options("immucellai2", list(1), "human"), "must be named")
 })
 
-test_that("seqimmucc is the method that takes counts", {
+test_that("seqimmucc takes counts", {
   expect_no_error(check("seqimmucc", "mouse", expr = "count"))
   expect_error(check("seqimmucc", "mouse", expr = "tpm"), "accepts expr = \"count\"")
   expect_false(check("seqimmucc", "mouse", expr = "count", n = 1L)$duplicate)  # native: works on one sample

@@ -12,12 +12,13 @@ res <- bulkdeconv(tpm, expr = "tpm", species = "human", method = "quantiseq")
 res$score   # samples x cell types
 ```
 
-- **One interface for 18 methods.** quanTIseq, MCP-counter, xCell, xCell2,
+- **One interface for 19 methods.** quanTIseq, MCP-counter, xCell, xCell2,
   ESTIMATE, EPIC, TIMER and others for human; mMCP-counter, seq-ImmuCC, BASE,
-  DCQ and others for mouse. The call and the result look the same for all.
+  BayesPrism, DCQ and others for mouse. The call and the result look the same for all.
 - **Installing the package is enough for 15 of them.** They are implemented
   inside bulkdeconv and reproduce the original output; their reference data
-  come with the package. Only EPIC, DCQ and SSMD need one extra install step.
+  come with the package. Only EPIC, BayesPrism, DCQ and SSMD need one extra
+  install step.
 - **The result says how to read it.** Every result states whether the numbers
   are fractions, abundance scores or enrichment scores, and what can be
   compared, with input and signature-coverage checks.
@@ -30,7 +31,7 @@ res$score   # samples x cell types
 ## Workflow
 
 ```text
-  gene symbol × sample table (TPM; counts for seq-ImmuCC)
+  gene symbol × sample table (TPM; counts for seq-ImmuCC and BayesPrism)
                  │
    bulkdeconv_methods()      which methods fit the species and the data?
                  │
@@ -96,8 +97,8 @@ returns); a numeric matrix with row names also works.
 - Gene symbols and sample names must be unique.
 - Values must be numeric, non-negative and **not log-transformed**; each
   sample needs at least one nonzero value.
-- Every method takes TPM (`expr = "tpm"`) except `seqimmucc`, which takes
-  counts. A wrong scale is refused with a message that says so.
+- Every method takes TPM (`expr = "tpm"`) except `seqimmucc` and `bayesprism`,
+  which take counts. A wrong scale is refused with a message that says so.
 - Pass the values as they are: do not filter or normalize them first, since
   each method needs its signature genes.
 
@@ -123,6 +124,7 @@ returns); a numeric matrix with row names also works.
 | `base` | mouse | yes | enrichment score | 2 |
 | `dcq` | mouse | no: `bulkdeconv_install("dcq")` | relative quantity | 1 |
 | `ssmd` | mouse | no: `bulkdeconv_install("ssmd")` | marker modules | 6 |
+| `bayesprism` | mouse | no: `bulkdeconv_install("bayesprism")`; references for 4 tumor models | fraction | 1 |
 
 `bulkdeconv_methods()` gives the full table. EPIC is free for non-commercial
 use only and SSMD declares no licence; both are reported when run.
@@ -137,10 +139,37 @@ Options are passed by name through `...`:
 | `cancer_type` | `consensus_tme`; required for `timer` |
 | `tissue` | `immucellai2`, `ssmd` |
 | `n_permutations`, `seed` | `base` |
+| `model` (required), `n_cores`, `seed` | `bayesprism` |
 
 ```r
 bulkdeconv(tpm, "tpm", "mouse", "xcell2", preset = "ImmGenData")
 ```
+
+## BayesPrism with tumor-model references
+
+`bayesprism` runs BayesPrism (Chu et al. 2022) with a reference built for the
+mouse tumor model: summed UMI counts per cell state from public scRNA-seq of
+that model (GEO GSE310560). Give raw counts and the model:
+
+```r
+bulkdeconv_install("bayesprism")
+res <- bulkdeconv(counts, "count", "mouse", "bayesprism", model = "MC38", n_cores = 4)
+```
+
+| `model` | Cell states | Malignant RMSE on another dataset |
+|---|---|---|
+| `B16F10` | 32 | 0.007 |
+| `MC38` | 28 | 0.077 |
+| `CT26` | 27 | 0.098 |
+| `LLC` | 32 | 0.039 |
+
+The error was measured on pseudo-bulk samples made from an independent
+scRNA-seq dataset of the same model (GSE121861). Each reference holds tumor
+cells, T cells (CD4, regulatory, CD8), monocytes, macrophages, dendritic cells
+and fibroblasts. Cells missing from it (endothelial cells, B and NK cells,
+neutrophils) are counted as other types. The values are fractions of reads
+over the genes used, not of cells. A run takes several minutes; `n_cores`
+splits it across cores.
 
 ## Reading the result
 

@@ -147,9 +147,17 @@ M = {
         lic_note="port of TIMER code (GPL-2.0); the curated immune reference derives from public sorted-cell expression data (inst/COPYRIGHTS)",
         expr_ev="TPM (immunedeconv documentation)", registration="not required", n_out="6", secs="5.7",
         notes="signatures are cancer-type specific (a different type changed the values by up to 0.02); batch correction against a reference (ComBat, package sva) makes values depend on the other samples; needs at least 2 samples; 6 cell types (B, CD4 T, CD8 T, neutrophil, macrophage, DC)"),
+    "bayesprism": dict(species="mouse", status="ready", min_n="1", single="native", indep="yes (diff 0)", cohort="no",
+        needs="model (B16F10, MC38, CT26 or LLC; required)", options="model|n_cores|seed", cls="fraction", engine="external",
+        packages="BayesPrism", expr="count", n_out="9-10", secs="147-175",
+        install="bioc::scran;bioc::BiocParallel;cran::snowfall;cran::NMF;cran::gplots;" + GH + "Danko-Lab/BayesPrism@19052052a6f30833b27e2148294459b0ba2f923e#BayesPrism",
+        source="GitHub:Danko-Lab/BayesPrism with bulkdeconv GEP references from GEO GSE310560", version="2.2.3", pin="19052052a6f30833b27e2148294459b0ba2f923e",
+        license="GPL-2 | GPL-3", lic_note="DESCRIPTION; the GEP references are summed counts from public GEO data (inst/COPYRIGHTS)",
+        expr_ev="raw counts for bulk and reference (README FAQ 6)", registration="not required",
+        notes="Bayesian deconvolution (Chu et al. 2022) with a reference per mouse tumor model: summed UMI counts per cell state from GSE310560 (young control mice, author annotation; 27-32 states, about 14,300 protein-coding genes). Cross-dataset pseudo-bulk check against GSE121861: malignant RMSE 0.007-0.098 (validation/bayesprism). Cell types missing from the reference (e.g. endothelial, B, NK cells, neutrophils) are counted as other types. Output is the fraction of reads over the genes used. 147-175 s for 1-6 samples on 10 cores; the same seed gives identical values; values identical alone and in a run of 6 (validation/bayesprism/12_package_check.R)."),
 }
 order = ["quantiseq", "mcp_counter", "xcell", "xcell2", "estimate", "consensus_tme", "immucellai2", "imsig",
-         "spatialdecon_safetme", "epic", "immucellai", "abis", "timer", "mmcp_counter", "dcq", "immucellai_mouse", "ssmd", "seqimmucc", "base", "immucc"]
+         "spatialdecon_safetme", "epic", "immucellai", "abis", "timer", "mmcp_counter", "dcq", "immucellai_mouse", "ssmd", "seqimmucc", "base", "bayesprism", "immucc"]
 
 
 def measured(method):

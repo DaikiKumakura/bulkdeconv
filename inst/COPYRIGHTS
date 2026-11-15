@@ -131,3 +131,13 @@ and ImmuCellAI-mouse (Copyright (c) 2025 Yun Sen):
   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
+
+------------------------------------------------------------------------------
+BayesPrism references (inst/extdata/bayesprism/*.rds)
+
+  Summed UMI counts per cell state for the mouse tumor models B16F10, MC38,
+  CT26 and LLC, computed from the public dataset GEO GSE310560 (young control
+  groups, cell annotation by the dataset authors), restricted to protein-coding
+  genes. Built by data-raw/bayesprism/04_build_gep.R. BayesPrism itself
+  (Danko-Lab/BayesPrism, GPL-2 | GPL-3) is not bundled; it is installed with
+  bulkdeconv_install("bayesprism").

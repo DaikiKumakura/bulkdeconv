@@ -119,6 +119,28 @@ bd_adapter_fns <- list(
   ssmd = function(X, opts, ctx) {
     r <- SSMD::SSMD(X, opts$tissue)
     list(score = t(as_score(r$Proportion)))
+  },
+  bayesprism = function(X, opts, ctx) {
+    # loading BayesPrism warns about clashing imports of its dependencies (gplots/stats, BiocParallel/NMF)
+    suppressWarnings(suppressMessages(loadNamespace("BayesPrism")))
+    ref <- readRDS(reference_file(ctx, "bayesprism", paste0(opts$model, ".rds")))
+    genes <- intersect(colnames(ref$gep), rownames(X))
+    if (length(genes) / ncol(ref$gep) < 0.5) {
+      stop("only ", round(100 * length(genes) / ncol(ref$gep)), "% of the reference genes of model '",
+           opts$model, "' are in the data; check the species and the gene symbols", call. = FALSE)
+    }
+    mixture <- t(as.matrix(X[genes, , drop = FALSE]))
+    storage.mode(mixture) <- "double"
+    set.seed(opts$seed)
+    utils::capture.output({
+      p <- BayesPrism::new.prism(reference = ref$gep[, genes, drop = FALSE], mixture = mixture,
+                                 input.type = "GEP", cell.type.labels = ref$state_type,
+                                 cell.state.labels = rownames(ref$gep), key = ref$key,
+                                 outlier.cut = 0.01, outlier.fraction = 0.1)
+      bp <- BayesPrism::run.prism(p, n.cores = opts$n_cores)
+    })
+    theta <- BayesPrism::get.fraction(bp, which.theta = "final", state.or.type = "type")
+    list(score = as_score(theta), coverage = c(signature = ncol(ref$gep), found = length(genes)))
   }
 )
 
