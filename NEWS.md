@@ -1,3 +1,10 @@
+# bulkdeconv (development version)
+
+* New method `bayesprism`: BayesPrism 2.2.3 with references for four mouse
+  tumor models (B16F10, MC38, CT26, LLC), built from public scRNA-seq
+  (GEO GSE310560). Takes raw counts; options `model`, `n_cores` and `seed`.
+  Install with `bulkdeconv_install("bayesprism")`.
+
 # bulkdeconv 0.1.0
 
 First version.
