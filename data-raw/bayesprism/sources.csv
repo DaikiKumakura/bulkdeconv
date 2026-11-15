@@ -1,0 +1,101 @@
+model,gse,gsm,role,title,file
+RENCA,GSE279662,GSM8577671,check,"Renca, PBS, scRNA",GSM8577671_PBS_barcodes.tsv.gz
+RENCA,GSE279662,GSM8577671,check,"Renca, PBS, scRNA",GSM8577671_PBS_features.tsv.gz
+RENCA,GSE279662,GSM8577671,check,"Renca, PBS, scRNA",GSM8577671_PBS_matrix.mtx.gz
+RENCA,GSE153942,GSM4819840,check,NKD180900300,GSM4819840_NKD180900300.tar.gz
+RENCA,GSE153942,GSM4819841,check,NKD180900301,GSM4819841_NKD180900301.tar.gz
+RENCA,GSE153942,GSM4819845,check,NKD180900305,GSM4819845_NKD180900305.tar.gz
+RENCA,GSE153942,GSM4819846,check,NKD180900306,GSM4819846_NKD180900306.tar.gz
+RENCA,GSE153942,GSM4819849,check,NKD180900309,GSM4819849_NKD180900309.tar.gz
+RENCA,GSE153942,GSM4819850,check,NKD180900310,GSM4819850_NKD180900310.tar.gz
+4T1,GSE252968,GSM8011239,check,"CD45-EPCAM-, young recipient, untreated",GSM8011239_S40483_4t1_young_ctr_6_filtered_feature_bc_matrix.h5
+4T1,GSE252968,GSM8011239,check,"CD45-EPCAM-, young recipient, untreated",GSM8011239_S40483_4t1_young_ctr_6_raw_feature_bc_matrix.h5
+4T1,GSE252968,GSM8011241,check,"CD45-EPCAM-, adult recipient, untreated",GSM8011241_S40485_4t1_old_ctr_8_filtered_feature_bc_matrix.h5
+4T1,GSE252968,GSM8011241,check,"CD45-EPCAM-, adult recipient, untreated",GSM8011241_S40485_4t1_old_ctr_8_raw_feature_bc_matrix.h5
+4T1,GSE252968,GSM8011242,check,"CD45-EPCAM+, adult recipient, untreated",GSM8011242_S42746_ctr_old_epcam_1_filtered_feature_bc_matrix.h5
+4T1,GSE252968,GSM8011242,check,"CD45-EPCAM+, adult recipient, untreated",GSM8011242_S42746_ctr_old_epcam_1_raw_feature_bc_matrix.h5
+4T1,GSE252968,GSM8011243,check,"CD45+EPCAM-, adult recipient, untreated",GSM8011243_S42747_ctr_old_cd45_plus_2_filtered_feature_bc_matrix.h5
+4T1,GSE252968,GSM8011243,check,"CD45+EPCAM-, adult recipient, untreated",GSM8011243_S42747_ctr_old_cd45_plus_2_raw_feature_bc_matrix.h5
+4T1,GSE252968,GSM8011244,check,"CD45-EPCAM+, young recipient, untreated",GSM8011244_S42748_ctr_young_epcam_3_filtered_feature_bc_matrix.h5
+4T1,GSE252968,GSM8011244,check,"CD45-EPCAM+, young recipient, untreated",GSM8011244_S42748_ctr_young_epcam_3_raw_feature_bc_matrix.h5
+E0771,GSE266617,GSM8252543,ref,E0771 Control,GSM8252543_Control_barcodes.tsv.gz
+E0771,GSE266617,GSM8252543,ref,E0771 Control,GSM8252543_Control_features.tsv.gz
+E0771,GSE266617,GSM8252543,ref,E0771 Control,GSM8252543_Control_matrix.mtx.gz
+E0771,GSE270981,GSM8366584,check,All live cells from primary tumor,GSM8366584_PT_E0771_barcodes.tsv.gz
+E0771,GSE270981,GSM8366584,check,All live cells from primary tumor,GSM8366584_PT_E0771_features.tsv.gz
+E0771,GSE270981,GSM8366584,check,All live cells from primary tumor,GSM8366584_PT_E0771_matrix.mtx.gz
+MB49,GSE259337,GSM8114435,ref,Ad-Control_Sample_1,GSM8114435_MB49-1.txt.gz
+MB49,GSE259337,GSM8114436,ref,Ad-Control_Sample_2,GSM8114436_MB49-2.txt.gz
+MB49,GSE240189,GSM7687945,check,"Male,CD45 positive cells,scRNAseq",GSM7687945_M-CD45-Pos.barcodes.tsv.gz
+MB49,GSE240189,GSM7687945,check,"Male,CD45 positive cells,scRNAseq",GSM7687945_M-CD45-Pos.features.tsv.gz
+MB49,GSE240189,GSM7687945,check,"Male,CD45 positive cells,scRNAseq",GSM7687945_M-CD45-Pos.matrix.mtx.gz
+MB49,GSE240189,GSM7687946,check,"Female, CD45 positive cells, scRNA seq",GSM7687946_F-CD45-Pos.barcodes.tsv.gz
+MB49,GSE240189,GSM7687946,check,"Female, CD45 positive cells, scRNA seq",GSM7687946_F-CD45-Pos.features.tsv.gz
+MB49,GSE240189,GSM7687946,check,"Female, CD45 positive cells, scRNA seq",GSM7687946_F-CD45-Pos.matrix.mtx.gz
+MB49,GSE240189,GSM7687947,check,"Male, CD45 negative cells, scRNAseq",GSM7687947_M-CD45-Neg.barcodes.tsv.gz
+MB49,GSE240189,GSM7687947,check,"Male, CD45 negative cells, scRNAseq",GSM7687947_M-CD45-Neg.features.tsv.gz
+MB49,GSE240189,GSM7687947,check,"Male, CD45 negative cells, scRNAseq",GSM7687947_M-CD45-Neg.matrix.mtx.gz
+MB49,GSE240189,GSM7687948,check,"Female, CD45 negative cells, scRNAseq",GSM7687948_F-CD45-Neg.barcodes.tsv.gz
+MB49,GSE240189,GSM7687948,check,"Female, CD45 negative cells, scRNAseq",GSM7687948_F-CD45-Neg.features.tsv.gz
+MB49,GSE240189,GSM7687948,check,"Female, CD45 negative cells, scRNAseq",GSM7687948_F-CD45-Neg.matrix.mtx.gz
+MB49_C5,GSE290112,GSM8806396,ref,scRNA-seq of mouse tumor tissues 1,GSM8806396_D1-1-filtered_feature_bc_matrix.h5
+MB49_C5,GSE290112,GSM8806397,ref,scRNA-seq of mouse tumor tissues 2,GSM8806397_D1-2-filtered_feature_bc_matrix.h5
+ID8,GSE297132,GSM8984428,ref,"primary tumors, ID8 model, scRNAseq",GSM8984428_primary_barcodes.tsv.gz
+ID8,GSE297132,GSM8984428,ref,"primary tumors, ID8 model, scRNAseq",GSM8984428_primary_features.tsv.gz
+ID8,GSE297132,GSM8984428,ref,"primary tumors, ID8 model, scRNAseq",GSM8984428_primary_matrix.mtx.gz
+MOC1,GSE273507,GSM8430331,ref,"Control ASOs, rep1",GSM8430331_SCAF2713_Control_ASO_159_filtered_feature_bc_matrix.h5
+MOC1,GSE273507,GSM8430332,ref,"Control ASOs, rep2",GSM8430332_SCAF2714_Control_ASO_173_filtered_feature_bc_matrix.h5
+MOC1,GSE273507,GSM8430333,ref,"Control ASOs, rep3",GSM8430333_SCAF2715_Control_ASO_90_filtered_feature_bc_matrix.h5
+MOC2,GSE182002,GSM5515947,ref,MOC2_rep1,GSM5515947_MOC2_rep1.h5
+MOC2,GSE182002,GSM5515948,ref,MOC2_rep2,GSM5515948_MOC2_rep2.h5
+SB28,GSE226292,GSM7070800,ref,"inactive ASO, SB28 glioblastoma, rep1",GSM7070800_MGIXX01_AKAC-inactive-C1.barcodes.tsv.gz
+SB28,GSE226292,GSM7070800,ref,"inactive ASO, SB28 glioblastoma, rep1",GSM7070800_MGIXX01_AKAC-inactive-C1.features.tsv.gz
+SB28,GSE226292,GSM7070800,ref,"inactive ASO, SB28 glioblastoma, rep1",GSM7070800_MGIXX01_AKAC-inactive-C1.matrix.mtx.gz
+SB28,GSE226292,GSM7070801,ref,"inactive ASO, SB28 glioblastoma, rep2",GSM7070801_MGIXX01_AKAC-inactive-C2.barcodes.tsv.gz
+SB28,GSE226292,GSM7070801,ref,"inactive ASO, SB28 glioblastoma, rep2",GSM7070801_MGIXX01_AKAC-inactive-C2.features.tsv.gz
+SB28,GSE226292,GSM7070801,ref,"inactive ASO, SB28 glioblastoma, rep2",GSM7070801_MGIXX01_AKAC-inactive-C2.matrix.mtx.gz
+MycCaP,GSE240382,GSM7697248,ref,"MycCap Tumors, WildType, rep4, scRNA",GSM7697248_C230105003_barcodes.tsv.gz
+MycCaP,GSE240382,GSM7697248,ref,"MycCap Tumors, WildType, rep4, scRNA",GSM7697248_C230105003_genes.tsv.gz
+MycCaP,GSE240382,GSM7697248,ref,"MycCap Tumors, WildType, rep4, scRNA",GSM7697248_C230105003_matrix.mtx.gz
+KPC1,GSE337208,GSM9850794,ref,"Orthotopic KPC1 PDAC, Veh, 2w",GSM9850794_343P_barcodes.tsv.gz
+KPC1,GSE337208,GSM9850794,ref,"Orthotopic KPC1 PDAC, Veh, 2w",GSM9850794_343P_features.tsv.gz
+KPC1,GSE337208,GSM9850794,ref,"Orthotopic KPC1 PDAC, Veh, 2w",GSM9850794_343P_matrix.mtx.gz
+KPC1199,GSE284696,GSM8690714,ref,ND STN 1 [scRNA-seq],GSM8690714_CD_ST1_barcodes.tsv.gz
+KPC1199,GSE284696,GSM8690714,ref,ND STN 1 [scRNA-seq],GSM8690714_CD_ST1_features.tsv.gz
+KPC1199,GSE284696,GSM8690714,ref,ND STN 1 [scRNA-seq],GSM8690714_CD_ST1_matrix.mtx.gz
+KPC1199,GSE284696,GSM8690717,ref,ND STN 2 [scRNA-seq],GSM8690717_CD_ST2_barcodes.tsv.gz
+KPC1199,GSE284696,GSM8690717,ref,ND STN 2 [scRNA-seq],GSM8690717_CD_ST2_features.tsv.gz
+KPC1199,GSE284696,GSM8690717,ref,ND STN 2 [scRNA-seq],GSM8690717_CD_ST2_matrix.mtx.gz
+KPC1199,GSE284696,GSM8690724,ref,ND STN 3 [scRNA-seq],GSM8690724_CD_ST_barcodes.tsv.gz
+KPC1199,GSE284696,GSM8690724,ref,ND STN 3 [scRNA-seq],GSM8690724_CD_ST_features.tsv.gz
+KPC1199,GSE284696,GSM8690724,ref,ND STN 3 [scRNA-seq],GSM8690724_CD_ST_matrix.mtx.gz
+GL261_HRE_UnaG,GSE179077,GSM5406096,ref,GL261-HRE-UnaG,GSM5406096_barcodes.tsv.gz
+GL261_HRE_UnaG,GSE179077,GSM5406096,ref,GL261-HRE-UnaG,GSM5406096_features.tsv.gz
+GL261_HRE_UnaG,GSE179077,GSM5406096,ref,GL261-HRE-UnaG,GSM5406096_matrix.mtx.gz
+TC1,GSE312357,GSM9344289,ref,TC1cntl_d3-1_scRNA-seq,GSM9344289_TC1cntl_d3_1_filtered_feature_bc_matrix.tar.gz
+TC1,GSE312357,GSM9344290,ref,TC1cntl_d3-2_scRNA-seq,GSM9344290_TC1cntl_d3_2_filtered_feature_bc_matrix.tar.gz
+TC1,GSE312357,GSM9344291,ref,TC1cntl_d7-1_scRNA-seq,GSM9344291_TC1cntl_d7_1_filtered_feature_bc_matrix.tar.gz
+TC1,GSE312357,GSM9344292,ref,TC1cntl_d7-2_scRNA-seq,GSM9344292_TC1cntl_d7_2_filtered_feature_bc_matrix.tar.gz
+CT2A,GSE309632,GSM9270729,ref,"Brain tumor tissues, GEX",GSM9270729_brain.tar.gz
+AB1,GSE153942,GSM4819842,ref,NKD180900302,GSM4819842_NKD180900302.tar.gz
+AB1,GSE153942,GSM4819843,ref,NKD180900303,GSM4819843_NKD180900303.tar.gz
+AB1,GSE153942,GSM4819844,ref,NKD180900304,GSM4819844_NKD180900304.tar.gz
+AB1,GSE153942,GSM4819847,ref,NKD180900307,GSM4819847_NKD180900307.tar.gz
+AB1,GSE153942,GSM4819848,ref,NKD180900308,GSM4819848_NKD180900308.tar.gz
+AB1,GSE153942,GSM4819851,ref,NKD180900311,GSM4819851_NKD180900311.tar.gz
+A20,GSE173117,GSM5260274,ref,A20_Veh,GSM5260274_SAE042212.barcodes.tsv.gz
+A20,GSE173117,GSM5260274,ref,A20_Veh,GSM5260274_SAE042212.genes.tsv.gz
+A20,GSE173117,GSM5260274,ref,A20_Veh,GSM5260274_SAE042212.matrix.mtx.gz
+F420,GSE179681,GSM5426229,ref,F420_tibia,GSM5426229_S0104.tar.gz
+F420,GSE179681,GSM5426226,check,F420_lung_Rep1,GSM5426226_S0067-F420.tar.gz
+F420,GSE179681,GSM5426227,check,F420_lung_Rep2,GSM5426227_S0068-F420.tar.gz
+K7M2,GSE179681,GSM5426230,ref,K7M2_tibia,GSM5426230_S0105.tar.gz
+K7M2,GSE179681,GSM5426228,check,K7M2_lung,GSM5426228_S0075-Balb-C-K7M2.tar.gz
+B16OVA,GSE261553,GSM8146602,ref,NTC-1-GEX,GSM8146602_S1_sgNTC.tar.gz
+B16OVA,GSE261553,GSM8146603,ref,NTC-2-GEX,GSM8146603_S2_sgNTC.tar.gz
+MC38,GSE222002,GSM7843396,check,"Sample 4_CD45+ immune cells and CD45- non-immune cells, PBS, scRNA-seq",GSM7843396_PBS_barcodes.tsv.gz
+MC38,GSE222002,GSM7843396,check,"Sample 4_CD45+ immune cells and CD45- non-immune cells, PBS, scRNA-seq",GSM7843396_PBS_features.tsv.gz
+MC38,GSE222002,GSM7843396,check,"Sample 4_CD45+ immune cells and CD45- non-immune cells, PBS, scRNA-seq",GSM7843396_PBS_matrix.mtx.gz
+CT26,GSE311795,GSM9332284,check,subcutaneously injected CT26 (shNC; control),GSM9332284_CHR0405.barcodes.tsv.gz
+CT26,GSE311795,GSM9332284,check,subcutaneously injected CT26 (shNC; control),GSM9332284_CHR0405.features.tsv.gz
+CT26,GSE311795,GSM9332284,check,subcutaneously injected CT26 (shNC; control),GSM9332284_CHR0405.matrix.mtx.gz

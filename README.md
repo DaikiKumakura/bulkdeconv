@@ -124,7 +124,7 @@ returns); a numeric matrix with row names also works.
 | `base` | mouse | yes | enrichment score | 2 |
 | `dcq` | mouse | no: `bulkdeconv_install("dcq")` | relative quantity | 1 |
 | `ssmd` | mouse | no: `bulkdeconv_install("ssmd")` | marker modules | 6 |
-| `bayesprism` | mouse | no: `bulkdeconv_install("bayesprism")`; references for 4 tumor models | fraction | 1 |
+| `bayesprism` | mouse | no: `bulkdeconv_install("bayesprism")`; references for 23 tumor models | fraction | 1 |
 
 `bulkdeconv_methods()` gives the full table. EPIC is free for non-commercial
 use only and SSMD declares no licence; both are reported when run.
@@ -149,24 +149,53 @@ bulkdeconv(tpm, "tpm", "mouse", "xcell2", preset = "ImmGenData")
 
 `bayesprism` runs BayesPrism (Chu et al. 2022) with a reference built for the
 mouse tumor model: summed UMI counts per cell state from public scRNA-seq of
-that model (GEO GSE310560). Give raw counts and the model:
+that model (GEO GSE310560 and other GEO series, listed in the table). Give raw counts and the model:
 
 ```r
 bulkdeconv_install("bayesprism")
 res <- bulkdeconv(counts, "count", "mouse", "bayesprism", model = "MC38", n_cores = 4)
 ```
 
-| `model` | Cell states | Malignant RMSE on another dataset |
-|---|---|---|
-| `B16F10` | 32 | 0.007 |
-| `MC38` | 28 | 0.077 |
-| `CT26` | 27 | 0.098 |
-| `LLC` | 32 | 0.039 |
+| `model` | Status | Cell states | Tumor cells | Malignant RMSE, independent | Malignant RMSE, own dataset | Source |
+|---|---|---|---|---|---|---|
+| `B16F10` | validated | 34 | 3141 | - | 0.007 | GSE310560 |
+| `MC38` | validated | 29 | 1846 | 0.448 | 0.019 | GSE310560 |
+| `CT26` | validated | 27 | 6554 | 0.41 | 0.026 | GSE310560 |
+| `LLC` | validated | 33 | 644 | - | 0.039 | GSE310560 |
+| `RENCA` | validated | 33 | 2528 | 0.051 | 0.028 | GSE310560 |
+| `4T1` | validated | 31 | 1488 | 0.097 | 0.207 | GSE310560 |
+| `KPCY-F` | candidate | 26 | 95 | - | 0.072 | GSE310560 |
+| `E0771` | validated | 11 | 2701 | 0.06 | 0.013 | GSE266617 |
+| `F420` | validated | 9 | 697 | 0.033 | 0.012 | GSE179681 |
+| `MB49` | candidate | 5 | 8776 | 0.137 | 0.011 | GSE259337 |
+| `K7M2` | candidate | 13 | 409 | 0.393 | 0.027 | GSE179681 |
+| `MB49_C5` | candidate | 8 | 358 | - | 0.017 | GSE290112 |
+| `ID8` | candidate | 10 | 179 | - | 0.023 | GSE297132 |
+| `MOC1` | candidate | 9 | 1333 | - | 0.01 | GSE273507 |
+| `SB28` | candidate | 8 | 1553 | - | 0.045 | GSE226292 |
+| `MycCaP` | candidate | 7 | 32942 | - | 0.011 | GSE240382 |
+| `KPC1` | candidate | 11 | 3146 | - | 0.004 | GSE337208 |
+| `GL261_HRE_UnaG` | candidate | 9 | 4542 | - | 0.036 | GSE179077 |
+| `TC1` | candidate | 7 | 3779 | - | 0.026 | GSE312357 |
+| `CT2A` | candidate | 6 | 1487 | - | 0.05 | GSE309632 |
+| `AB1` | candidate | 9 | 3790 | - | 0.104 | GSE153942 |
+| `A20` | candidate | 6 | 1323 | - | 0.111 | GSE173117 |
+| `B16OVA` | candidate | 10 | 2438 | - | 0.002 | GSE261553 |
 
-The error was measured on pseudo-bulk samples made from an independent
-scRNA-seq dataset of the same model (GSE121861). Each reference holds tumor
-cells, T cells (CD4, regulatory, CD8), monocytes, macrophages, dendritic cells
-and fibroblasts. Cells missing from it (endothelial cells, B and NK cells,
+RMSE is the error of the malignant fraction on pseudo-bulk samples made from
+scRNA-seq cells: "independent" from another dataset of the same model,
+"own dataset" from a held-out mouse (or half of the cells) of the reference
+dataset. `validated` models passed an independent check (or, for B16F10 and
+LLC, a held-out-mouse check in GSE310560); `candidate` models have no passing
+independent check (most were checked only within their own dataset) and give a
+warning. For MC38 and CT26 the second
+independent dataset (GSE222002, GSE311795) disagreed (RMSE 0.45, 0.41), likely
+in part from its cell annotation; an earlier check on GSE121861 gave 0.077 and
+0.098. The references of the GSE310560 models hold tumor cells, T cells (CD4,
+regulatory, CD8), monocytes, macrophages, dendritic cells and fibroblasts; the
+other references hold the cell types found in their dataset (column
+`cell_types` of `inst/registry/bayesprism_models.csv`). Cells missing from a
+reference (endothelial cells, B and NK cells,
 neutrophils) are counted as other types. The values are fractions of reads
 over the genes used, not of cells. A run takes several minutes; `n_cores`
 splits it across cores.

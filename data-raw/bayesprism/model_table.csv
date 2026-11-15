@@ -1,0 +1,24 @@
+model,ref,source,status,rmse_malignant_independent,rmse_malignant_within,note
+B16F10,humu,GSE310560,validated,,0.007,held-out mouse check only
+MC38,humu,GSE310560,validated,0.448,0.019,independent check (GSE222002) disagrees; its annotation may be at fault
+CT26,humu,GSE310560,validated,0.410,0.026,independent check (GSE311795) disagrees; its annotation may be at fault
+LLC,humu,GSE310560,validated,,0.039,held-out mouse check only
+RENCA,humu,GSE310560,validated,0.051,0.028,
+4T1,humu,GSE310560,validated,0.097,0.207,
+KPCY-F,humu,GSE310560,candidate,,0.072,114 tumor cells; cell-half check only
+E0771,geo,GSE266617,validated,0.060,0.013,
+F420,geo,GSE179681,validated,0.033,0.012,independent check: lung metastasis of the same study
+MB49,geo,GSE259337,candidate,0.137,0.011,
+K7M2,geo,GSE179681,candidate,0.393,0.027,
+MB49_C5,geo,GSE290112,candidate,,0.017,358 tumor cells
+ID8,geo,GSE297132,candidate,,0.023,179 tumor cells
+MOC1,geo,GSE273507,candidate,,0.010,
+SB28,geo,GSE226292,candidate,,0.045,
+MycCaP,geo,GSE240382,candidate,,0.011,only macrophages besides tumor
+KPC1,geo,GSE337208,candidate,,0.004,
+GL261_HRE_UnaG,geo,GSE179077,candidate,,0.036,
+TC1,geo,GSE312357,candidate,,0.026,
+CT2A,geo,GSE309632,candidate,,0.050,
+AB1,geo,GSE153942,candidate,,0.104,
+A20,geo,GSE173117,candidate,,0.111,plasma-like cells may be malignant
+B16OVA,geo,GSE261553,candidate,,0.002,
