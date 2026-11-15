@@ -101,9 +101,11 @@ test_that("spatialdecon (SAFE-TME) reproduces converged reference scores", {
   # (largest difference seen on Ubuntu and macOS: 8e-5), hence the tolerance.
   expect_equal(got["LAU125", ], g$expected["LAU125", ],
                tolerance = if (.Platform$OS.type == "windows") 1e-5 else 1e-3)
-  if (.Platform$OS.type == "windows") {
-    expect_equal(got, g$expected, tolerance = 1e-5)
-  }
+  # The other three samples stop at the iteration limit. Where they stop
+  # depends on the machine: two GitHub Windows runs of the same commit
+  # (aa38bb0, 2026-11-15) gave 43.1 and 31.1 for one score of LAU355. They are
+  # therefore checked only for being finite and non-negative (above), not
+  # against the recorded values.
   reversed <- g$X[rev(seq_len(nrow(g$X))), , drop = FALSE]
   expect_identical(suppressWarnings(run_native("spatialdecon_fit", reversed, safe)), got)
   expect_warning(
