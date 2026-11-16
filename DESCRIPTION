@@ -4,9 +4,9 @@ Title: Cell-Type Deconvolution of Tumor Bulk RNA-Seq Through One Function
 Version: 0.1.0
 Authors@R: person("Daiki", "Kumakura", role = c("aut", "cre"),
     email = "55353329+DaikiKumakura@users.noreply.github.com")
-Description: Runs 18 published cell-type deconvolution and cell-abundance
+Description: Runs 21 published cell-type deconvolution and cell-abundance
     methods for bulk RNA-seq of tumor tissue (human or mouse) through a single
-    function, bulkdeconv(data, expr, species, method). Fifteen methods are
+    function, bulkdeconv(data, expr, species, method). Eighteen methods are
     implemented in the package, reproduce the output of the original
     implementations and run after installation, with their reference data
     included. The other three run from their original packages, installed

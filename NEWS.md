@@ -1,3 +1,11 @@
+# bulkdeconv (development version)
+
+* Three signature-based human methods, implemented in the package with their
+  data included: `gedit` (GEDIT, Nadel et al. 2021; presets `"HPCA"` with
+  stromal cell types and `"ImmunoStates"`), `danaher` (marker-gene scores of
+  14 immune populations, Danaher et al. 2017) and `charoentong` (ssGSEA on the
+  28 immune cell gene sets of Charoentong et al. 2017).
+
 # bulkdeconv 0.1.0
 
 First version.

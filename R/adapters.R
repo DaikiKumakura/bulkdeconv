@@ -60,6 +60,18 @@ bd_adapter_fns <- list(
     list(score = estimate_fit(X, d$common_genes, d$gene_sets),
          coverage = coverage(unique(d$common_genes$hgnc_symbol), X))
   },
+  gedit = function(X, opts, ctx) {
+    ref <- readRDS(file.path(ctx$extdata, "gedit", paste0(opts$preset, ".rds")))
+    list(score = gedit_fit(X, ref), coverage = coverage(rownames(ref), X))
+  },
+  danaher = function(X, opts, ctx) {
+    mk <- readRDS(file.path(ctx$extdata, "danaher", "markers.rds"))
+    list(score = danaher_fit(X, mk), coverage = coverage(unlist(mk), X))
+  },
+  charoentong = function(X, opts, ctx) {
+    sets <- readRDS(file.path(ctx$extdata, "charoentong", "gene_sets.rds"))
+    list(score = t(ssgsea(log2(as.matrix(X) + 1), sets)), coverage = coverage(unique(unlist(sets)), X))
+  },
   consensus_tme = function(X, opts, ctx) {
     sets <- readRDS(file.path(ctx$extdata, "consensus_tme", "gene_sets.rds"))
     list(score = consensus_tme_fit(X, sets, opts$cancer_type), coverage = coverage(unlist(sets[[opts$cancer_type]]), X))

@@ -4,7 +4,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24210482.svg)](https://doi.org/10.5281/zenodo.24210482)
 <!-- badges: end -->
 
-**Cell-type deconvolution of human and mouse tumor bulk RNA-seq: 18
+**Cell-type deconvolution of human and mouse tumor bulk RNA-seq: 21
 published methods through one function.**
 
 ```r
@@ -12,10 +12,10 @@ res <- bulkdeconv(tpm, expr = "tpm", species = "human", method = "quantiseq")
 res$score   # samples x cell types
 ```
 
-- **One interface for 18 methods.** quanTIseq, MCP-counter, xCell, xCell2,
-  ESTIMATE, EPIC, TIMER and others for human; mMCP-counter, seq-ImmuCC, BASE,
+- **One interface for 21 methods.** quanTIseq, MCP-counter, xCell, xCell2,
+  ESTIMATE, EPIC, TIMER, GEDIT and others for human; mMCP-counter, seq-ImmuCC, BASE,
   DCQ and others for mouse. The call and the result look the same for all.
-- **Installing the package is enough for 15 of them.** They are implemented
+- **Installing the package is enough for 18 of them.** They are implemented
   inside bulkdeconv and reproduce the original output; their reference data
   come with the package. Only EPIC, DCQ and SSMD need one extra install step.
 - **The result says how to read it.** Every result states whether the numbers
@@ -54,7 +54,7 @@ install.packages(c("remotes", "BiocManager"))
 remotes::install_github("DaikiKumakura/bulkdeconv", repos = BiocManager::repositories())
 ```
 
-This is all for the 15 built-in methods. For the three that run from their
+This is all for the 18 built-in methods. For the three that run from their
 original packages, whose licences do not allow shipping them here, install
 once:
 
@@ -116,6 +116,9 @@ returns); a numeric matrix with row names also works.
 | `spatialdecon_safetme` | human | yes | abundance estimate | 1 |
 | `abis` | human | yes (blood-derived signatures) | abundance estimate | 1 |
 | `timer` | human | yes | abundance score | 2 |
+| `gedit` | human | yes (2 reference presets) | fraction | 1 |
+| `danaher` | human | yes | abundance score | 1 |
+| `charoentong` | human | yes | enrichment score | 1 |
 | `epic` | human | no: `bulkdeconv_install("epic")` | fraction | 1 |
 | `mmcp_counter` | mouse | yes | abundance score | 1 |
 | `immucellai_mouse` | mouse | yes | fraction | 2 |
@@ -133,7 +136,7 @@ Options are passed by name through `...`:
 
 | Option | Methods |
 |---|---|
-| `preset` | `xcell2` (reference set, for example `"ImmGenData"` for mouse) |
+| `preset` | `xcell2` (reference set, for example `"ImmGenData"` for mouse); `gedit` (`"HPCA"`, default, or `"ImmunoStates"`) |
 | `cancer_type` | `consensus_tme`; required for `timer` |
 | `tissue` | `immucellai2`, `ssmd` |
 | `n_permutations`, `seed` | `base` |
@@ -149,8 +152,8 @@ bulkdeconv(tpm, "tpm", "mouse", "xcell2", preset = "ImmGenData")
   composition; scores compare one cell type across samples, not cell types
   with each other.
 - Methods whose output depends on the other samples in the run (`xcell`,
-  `xcell2`, `consensus_tme`, `imsig`, `timer`, `immucellai_mouse`, `ssmd`,
-  `base`) warn when there are fewer than 10 samples. Use samples from one
+  `xcell2`, `consensus_tme`, `imsig`, `timer`, `charoentong`,
+  `immucellai_mouse`, `ssmd`, `base`) warn when there are fewer than 10 samples. Use samples from one
   cohort for relative comparisons.
 - A single sample is accepted only where the method can handle it. For xCell2,
   a one-sample run returns zero for every cell type, because the method
@@ -158,10 +161,13 @@ bulkdeconv(tpm, "tpm", "mouse", "xcell2", preset = "ImmGenData")
 
 ## Validation
 
-The 15 built-in methods are checked in the tests against output recorded from
-the original implementations. On a clean installation from GitHub, all 15 ran
-without any extra step, and EPIC, DCQ and SSMD ran after
-`bulkdeconv_install()`. R CMD check passes on Linux, macOS and Windows in CI.
+The 15 built-in methods of the first release are checked in the tests against
+output recorded from the original implementations; on a clean installation
+from GitHub, all 15 ran without any extra step, and EPIC, DCQ and SSMD ran after
+`bulkdeconv_install()`. GEDIT is checked by recovering the proportions of
+noise-free mixtures of its reference profiles, and the Danaher and Charoentong
+scores against their published definitions (mean log2 expression of marker
+genes; ssGSEA). R CMD check passes on Linux, macOS and Windows in CI.
 Sources, licences and the few deliberate differences from the originals are
 listed in [`inst/COPYRIGHTS`](https://github.com/DaikiKumakura/bulkdeconv/blob/main/inst/COPYRIGHTS) and the registry
 ([`inst/registry/`](https://github.com/DaikiKumakura/bulkdeconv/tree/main/inst/registry)).

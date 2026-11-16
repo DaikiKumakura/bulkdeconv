@@ -76,6 +76,7 @@ bd_option_spec <- function(method, species) {
     consensus_tme = list(cancer_type = list(
       default = "Unfiltered",
       values = c("Unfiltered", bd_tcga_types))),
+    gedit = list(preset = list(default = "HPCA", values = c("HPCA", "ImmunoStates"))),
     immucellai2 = list(tissue = list(default = "tumor", values = c("tumor", "non-tumor"))),
     ssmd = list(tissue = list(default = "Inflammatory",
                               values = c("Inflammatory", "Central Nervous System",

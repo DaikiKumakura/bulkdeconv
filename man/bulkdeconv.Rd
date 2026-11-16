@@ -21,7 +21,7 @@ The wrong one is refused with a message that says so.}
 
 \item{method}{A method ID; see \code{\link[=bulkdeconv_methods]{bulkdeconv_methods()}}.}
 
-\item{...}{Method-specific options, named: \code{preset} (xcell2),
+\item{...}{Method-specific options, named: \code{preset} (xcell2, gedit),
 \code{cancer_type} (consensus_tme; required for timer), \code{tissue} (immucellai2,
 ssmd), \code{n_permutations} and \code{seed} (base). Unknown or invalid options are errors.}
 }

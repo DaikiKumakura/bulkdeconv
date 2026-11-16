@@ -4,9 +4,10 @@ MIT, all of which can be distributed under version 3, the way the immunedeconv
 package declares the licence of the methods it collects. This file records where
 the code and data of the natively implemented methods come from.
 
-Fifteen methods are implemented in the package: abis, seqimmucc, base, timer,
+Eighteen methods are implemented in the package: abis, seqimmucc, base, timer,
 estimate, immucellai2, spatialdecon_safetme, immucellai_mouse, consensus_tme,
-xcell, mcp_counter, mmcp_counter, imsig, quantiseq and xcell2.
+xcell, mcp_counter, mmcp_counter, imsig, quantiseq, xcell2, gedit, danaher and
+charoentong.
 
 The other methods are not part of this package: their original packages are
 installed separately into a private library and run in separate R processes
@@ -14,7 +15,7 @@ installed separately into a private library and run in separate R processes
 (bulkdeconv_methods()$license) and reported when a method runs.
 
 CODE
-  R/native.R, R/native2.R and R/native3.R are ports of the algorithms below, written so that it gives the
+  R/native.R, R/native2.R, R/native3.R and R/native4.R are ports of the algorithms below, written so that it gives the
   same numbers as the original code. Sources:
   - seq-ImmuCC LLSR: seqImmuCC_LLSR.R in omnideconv/immunedeconv (GPL-2),
     stated there to be provided by the seq-ImmuCC authors.
@@ -28,6 +29,15 @@ CODE
   - TIMER: github.com/hanfeisun/TIMER (GPL-2.0), itself adapted from the
     original TIMER source (cistrome.org/TIMER).
     Li B, et al. Genome Biol 2016, doi:10.1186/s13059-016-1028-7
+  - GEDIT: GEDIT3.py and scripts/ of github.com/BNadel/GEDIT at commit
+    be9b33f89842b860821a874b6cb2586bd0d2a050 (MIT, Copyright (c) 2020 Brian
+    Nadel; licence text below), with its default parameters.
+    Nadel BB, et al. GigaScience 2021, doi:10.1093/gigascience/giab002
+  - Danaher cell-type scores: the scoring rule of Danaher P, et al.
+    J Immunother Cancer 2017, doi:10.1186/s40425-017-0215-8 (mean log2
+    expression of each population's marker genes).
+  - Charoentong immune cell scores: ssGSEA (as for xcell) on the gene sets of
+    Charoentong P, et al. Cell Rep 2017, doi:10.1016/j.celrep.2016.12.019
     Constrained regression: Abbas AR, et al. PLoS One 2009.
   - ESTIMATE: tidyestimate 1.1.1 (GPL >= 2; Aragaki K), which packages the
     ESTIMATE algorithm of Yoshihara K, et al. Nat Commun 2013,
@@ -106,13 +116,25 @@ the rest from the packages named, at the versions named.)
                                      text file and keeps these rows), and the
                                      marker list; from ImmuCellAI 2.0.
 
+  gedit/HPCA.rds, gedit/ImmunoStates.rds
+                                     GEDIT reference matrices HPCA_Recommended.csv
+                                     and ImmunoStates.tsv from BNadel/GEDIT at
+                                     be9b33f (MIT); built by data-raw/build_signatures.R.
+  danaher/markers.rds                the 60 selected marker genes of 14 immune
+                                     populations (Danaher et al. 2017, Additional
+                                     file 1, Table S4).
+  charoentong/gene_sets.rds          the 782 pan-cancer immune metagenes of 28
+                                     immune cell types (Charoentong et al. 2017,
+                                     Table S6).
+
   All reference files listed above are part of the source distribution. They
   are distributed as published and as already distributed in immunedeconv and
   xCell2, with attribution to their authors.
 
 MIT LICENCE TEXT for the code ported from ImmuCellAI 2.0 (Copyright (c) 2026
-Jingmin Yang), SpatialDecon (Copyright (c) 2021 NanoString Technologies, Inc.)
-and ImmuCellAI-mouse (Copyright (c) 2025 Yun Sen):
+Jingmin Yang), SpatialDecon (Copyright (c) 2021 NanoString Technologies, Inc.),
+ImmuCellAI-mouse (Copyright (c) 2025 Yun Sen) and GEDIT (Copyright (c) 2020
+Brian Nadel), and the GEDIT reference matrices:
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal

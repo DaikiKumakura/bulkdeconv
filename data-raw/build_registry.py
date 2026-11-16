@@ -147,9 +147,27 @@ M = {
         lic_note="port of TIMER code (GPL-2.0); the curated immune reference derives from public sorted-cell expression data (inst/COPYRIGHTS)",
         expr_ev="TPM (immunedeconv documentation)", registration="not required", n_out="6", secs="5.7",
         notes="signatures are cancer-type specific (a different type changed the values by up to 0.02); batch correction against a reference (ComBat, package sva) makes values depend on the other samples; needs at least 2 samples; 6 cell types (B, CD4 T, CD8 T, neutrophil, macrophage, DC)"),
+    "gedit": dict(n_out="25 (HPCA) or 20 (ImmunoStates)", secs="0.2", engine="native", install="", species="human", status="ready", min_n="1", single="native",
+        indep="nearly (diff 4.3e-05 alone vs in 6)", cohort="no", needs="", options="preset", cls="fraction", packages="",
+        source="native port of GEDIT 3.0 (Nadel et al. 2021, GigaScience) after GEDIT3.py; reference matrices from BNadel/GEDIT", version="bulkdeconv",
+        pin="data:BNadel/GEDIT@be9b33f89842b860821a874b6cb2586bd0d2a050", license="MIT (GEDIT; ported into bulkdeconv, GPL-3)",
+        lic_note="GEDIT code and reference matrices are MIT (inst/COPYRIGHTS)", expr_ev="linear expression (TPM); GEDIT README", registration="not required",
+        notes="presets HPCA (Human Primary Cell Atlas: 25 cell types including fibroblasts, endothelial, epithelial and smooth muscle cells; default) and ImmunoStates (20 immune cell types); GEDIT defaults: 50 signature genes per cell type by entropy, row rescaling to [0, 1] over reference and mixture (hence a dependence on the other samples of the order of 1e-5), NNLS, fractions summing to 1; recovers known proportions of noise-free mixtures of the HPCA profiles with r = 0.906 (tests/testthat/test-new-methods.R)"),
+    "danaher": dict(n_out="14", secs="0.01", engine="native", install="", species="human", status="ready", min_n="1", single="native",
+        indep="yes (diff 0)", cohort="no", needs="", options="", cls="abundance_score", packages="",
+        source="Danaher et al. 2017 (J Immunother Cancer): 60 marker genes of 14 immune cell populations (Additional file 1, Table S4)", version="bulkdeconv",
+        pin="data:Danaher 2017 Additional file 1", license="published gene list (open-access article, J Immunother Cancer)",
+        lic_note="gene list from the open-access article (inst/COPYRIGHTS)", expr_ev="log2 normalized expression (paper); bulkdeconv takes TPM and uses log2(TPM + 1)", registration="not required",
+        notes="score = mean log2(TPM + 1) of each population's marker genes (14 populations including CD45, T cells, CD8 T cells, cytotoxic cells, exhausted CD8, Treg, Th1, B cells, NK, NK CD56dim, DC, macrophages, mast cells, neutrophils); the paper's Total TILs composite is not given because neither definition in the paper reproduces the authors' published TCGA scores"),
+    "charoentong": dict(n_out="28", secs="0.5", engine="native", install="", species="human", status="ready", min_n="1", single="native",
+        indep="no (diff 0.145 alone vs in 4)", cohort="yes", needs="", options="", cls="enrichment_score", packages="",
+        source="Charoentong et al. 2017 (Cell Reports, TCIA): pan-cancer immune metagenes of 28 immune cell types (Table S6), scored by ssGSEA", version="bulkdeconv",
+        pin="data:Charoentong 2017 Table S6", license="published gene list (Cell Reports article)",
+        lic_note="gene list from the article (inst/COPYRIGHTS)", expr_ev="ssGSEA is rank based; log2(TPM + 1) used", registration="not required",
+        notes="ssGSEA (GSVA defaults: alpha 0.25, scores divided by the range over all scores of the run, hence the dependence on the other samples) on 28 gene sets (782 genes) of adaptive and innate immune cell types"),
 }
 order = ["quantiseq", "mcp_counter", "xcell", "xcell2", "estimate", "consensus_tme", "immucellai2", "imsig",
-         "spatialdecon_safetme", "epic", "immucellai", "abis", "timer", "mmcp_counter", "dcq", "immucellai_mouse", "ssmd", "seqimmucc", "base", "immucc"]
+         "spatialdecon_safetme", "epic", "immucellai", "abis", "timer", "gedit", "danaher", "charoentong", "mmcp_counter", "dcq", "immucellai_mouse", "ssmd", "seqimmucc", "base", "immucc"]
 
 
 def measured(method):

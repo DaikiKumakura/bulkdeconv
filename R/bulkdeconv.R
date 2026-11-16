@@ -16,7 +16,7 @@
 #'   The wrong one is refused with a message that says so.
 #' @param species `"human"` or `"mouse"`.
 #' @param method A method ID; see [bulkdeconv_methods()].
-#' @param ... Method-specific options, named: `preset` (xcell2),
+#' @param ... Method-specific options, named: `preset` (xcell2, gedit),
 #'   `cancer_type` (consensus_tme; required for timer), `tissue` (immucellai2,
 #'   ssmd), `n_permutations` and `seed` (base). Unknown or invalid options are errors.
 #' @details
