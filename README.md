@@ -4,7 +4,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24210482.svg)](https://doi.org/10.5281/zenodo.24210482)
 <!-- badges: end -->
 
-**Cell-type deconvolution of human and mouse tumor bulk RNA-seq: 21
+**Cell-type deconvolution of human and mouse tumor bulk RNA-seq: 24
 published methods through one function.**
 
 ```r
@@ -12,12 +12,12 @@ res <- bulkdeconv(tpm, expr = "tpm", species = "human", method = "quantiseq")
 res$score   # samples x cell types
 ```
 
-- **One interface for 21 methods.** quanTIseq, MCP-counter, xCell, xCell2,
-  ESTIMATE, EPIC, TIMER, GEDIT and others for human; mMCP-counter, seq-ImmuCC, BASE,
+- **One interface for 24 methods.** quanTIseq, MCP-counter, xCell, xCell2,
+  ESTIMATE, EPIC, TIMER, GEDIT, PUREE (tumor purity) and others for human; mMCP-counter, seq-ImmuCC, BASE,
   DCQ and others for mouse. The call and the result look the same for all.
-- **Installing the package is enough for 18 of them.** They are implemented
+- **Installing the package is enough for 19 of them.** They are implemented
   inside bulkdeconv and reproduce the original output; their reference data
-  come with the package. Only EPIC, DCQ and SSMD need one extra install step.
+  come with the package. EPIC, DCQ, SSMD, PUREE and mySORT need one extra install step.
 - **The result says how to read it.** Every result states whether the numbers
   are fractions, abundance scores or enrichment scores, and what can be
   compared, with input and signature-coverage checks.
@@ -54,7 +54,7 @@ install.packages(c("remotes", "BiocManager"))
 remotes::install_github("DaikiKumakura/bulkdeconv", repos = BiocManager::repositories())
 ```
 
-This is all for the 18 built-in methods. For the three that run from their
+This is all for the 19 built-in methods. For the three that run from their
 original packages, whose licences do not allow shipping them here, install
 once:
 
@@ -119,6 +119,9 @@ returns); a numeric matrix with row names also works.
 | `gedit` | human | yes (2 reference presets) | fraction | 1 |
 | `danaher` | human | yes | abundance score | 1 |
 | `charoentong` | human | yes | enrichment score | 1 |
+| `bindea` | human | yes | enrichment score | 1 |
+| `puree` | human | no: `bulkdeconv_install("puree")` (downloads the model) | fraction (tumor purity) | 1 |
+| `mysort` | human | no: `bulkdeconv_install("mysort")` | fraction (percent) | 1 |
 | `epic` | human | no: `bulkdeconv_install("epic")` | fraction | 1 |
 | `mmcp_counter` | mouse | yes | abundance score | 1 |
 | `immucellai_mouse` | mouse | yes | fraction | 2 |
@@ -127,8 +130,10 @@ returns); a numeric matrix with row names also works.
 | `dcq` | mouse | no: `bulkdeconv_install("dcq")` | relative quantity | 1 |
 | `ssmd` | mouse | no: `bulkdeconv_install("ssmd")` | marker modules | 6 |
 
-`bulkdeconv_methods()` gives the full table. EPIC is free for non-commercial
-use only and SSMD declares no licence; both are reported when run.
+`bulkdeconv_methods()` gives the full table. EPIC and PUREE are free for non-commercial
+use only, and SSMD and mySORT declare no licence; this is reported when run.
+PUREE's model is not bundled: `bulkdeconv_install("puree")` downloads it
+from a recorded commit and checks it.
 
 ## Method options
 
@@ -152,8 +157,8 @@ bulkdeconv(tpm, "tpm", "mouse", "xcell2", preset = "ImmGenData")
   composition; scores compare one cell type across samples, not cell types
   with each other.
 - Methods whose output depends on the other samples in the run (`xcell`,
-  `xcell2`, `consensus_tme`, `imsig`, `timer`, `charoentong`,
-  `immucellai_mouse`, `ssmd`, `base`) warn when there are fewer than 10 samples. Use samples from one
+  `xcell2`, `consensus_tme`, `imsig`, `timer`, `charoentong`, `bindea`,
+  `mysort`, `immucellai_mouse`, `ssmd`, `base`) warn when there are fewer than 10 samples. Use samples from one
   cohort for relative comparisons.
 - A single sample is accepted only where the method can handle it. For xCell2,
   a one-sample run returns zero for every cell type, because the method
@@ -167,7 +172,9 @@ from GitHub, all 15 ran without any extra step, and EPIC, DCQ and SSMD ran after
 `bulkdeconv_install()`. GEDIT is checked by recovering the proportions of
 noise-free mixtures of its reference profiles, and the Danaher and Charoentong
 scores against their published definitions (mean log2 expression of marker
-genes; ssGSEA). R CMD check passes on Linux, macOS and Windows in CI.
+genes; ssGSEA). PUREE reproduces the purities of its original test data
+exactly; mySORT matches the authors' example output for 21 of 24 samples (the
+others differ where two of its model settings fit almost equally well). R CMD check passes on Linux, macOS and Windows in CI.
 Sources, licences and the few deliberate differences from the originals are
 listed in [`inst/COPYRIGHTS`](https://github.com/DaikiKumakura/bulkdeconv/blob/main/inst/COPYRIGHTS) and the registry
 ([`inst/registry/`](https://github.com/DaikiKumakura/bulkdeconv/tree/main/inst/registry)).

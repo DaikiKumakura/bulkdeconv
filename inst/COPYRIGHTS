@@ -4,10 +4,11 @@ MIT, all of which can be distributed under version 3, the way the immunedeconv
 package declares the licence of the methods it collects. This file records where
 the code and data of the natively implemented methods come from.
 
-Eighteen methods are implemented in the package: abis, seqimmucc, base, timer,
+Nineteen methods are implemented in the package: abis, seqimmucc, base, timer,
 estimate, immucellai2, spatialdecon_safetme, immucellai_mouse, consensus_tme,
-xcell, mcp_counter, mmcp_counter, imsig, quantiseq, xcell2, gedit, danaher and
-charoentong.
+xcell, mcp_counter, mmcp_counter, imsig, quantiseq, xcell2, gedit, danaher,
+charoentong and bindea. The computation of puree is also in the package, but
+its model is downloaded at install time (see below).
 
 The other methods are not part of this package: their original packages are
 installed separately into a private library and run in separate R processes
@@ -38,6 +39,20 @@ CODE
     expression of each population's marker genes).
   - Charoentong immune cell scores: ssGSEA (as for xcell) on the gene sets of
     Charoentong P, et al. Cell Rep 2017, doi:10.1016/j.celrep.2016.12.019
+  - Bindea immune cell scores: ssGSEA on the gene sets of Bindea G, et al.
+    Immunity 2013, doi:10.1016/j.immuni.2013.10.003, as tabulated by
+    Senbabaoglu Y, et al. Genome Biol 2016, doi:10.1186/s13059-016-1092-z
+  - PUREE: predict_purity.py and scripts/purity_predictor.py of
+    github.com/skandlab/PUREE at commit 5a0a702535e79e37b071971063e72fa697540818.
+    Revkov E, et al. Commun Biol 2023, doi:10.1038/s42003-023-04764-8
+    The PUREE model is licensed CC BY-NC-SA 4.0 (non-commercial) and is NOT
+    distributed with bulkdeconv: bulkdeconv_install("puree") downloads the
+    model files from that commit into the private library, checks their size
+    and MD5, and reads the coefficients from them.
+  - mySORT: the SVR() function of svr_without_rmse_corr.r in the authors'
+    Docker image lsbnb/mysort_2022 (no licence stated), run with e1071 and
+    preprocessCore installed by bulkdeconv_install("mysort").
+    Chen SH, et al. BMC Bioinformatics 2018, doi:10.1186/s12859-018-2069-6
     Constrained regression: Abbas AR, et al. PLoS One 2009.
   - ESTIMATE: tidyestimate 1.1.1 (GPL >= 2; Aragaki K), which packages the
     ESTIMATE algorithm of Yoshihara K, et al. Nat Commun 2013,
@@ -126,6 +141,14 @@ the rest from the packages named, at the versions named.)
   charoentong/gene_sets.rds          the 782 pan-cancer immune metagenes of 28
                                      immune cell types (Charoentong et al. 2017,
                                      Table S6).
+  bindea/gene_sets.rds               the 24 immune cell gene sets (501 genes) of
+                                     Bindea et al. 2013 from Senbabaoglu et al.
+                                     2016, Additional file 2, Table S1.
+  mysort/signature_matrix.rds        the mySORT signature matrix (603 genes x 21
+                                     cell types), var/www/mySORT/data/
+                                     signature_matrix.csv of the Docker image
+                                     lsbnb/mysort_2022; no licence stated,
+                                     distributed with attribution.
 
   All reference files listed above are part of the source distribution. They
   are distributed as published and as already distributed in immunedeconv and

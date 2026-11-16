@@ -165,9 +165,27 @@ M = {
         pin="data:Charoentong 2017 Table S6", license="published gene list (Cell Reports article)",
         lic_note="gene list from the article (inst/COPYRIGHTS)", expr_ev="ssGSEA is rank based; log2(TPM + 1) used", registration="not required",
         notes="ssGSEA (GSVA defaults: alpha 0.25, scores divided by the range over all scores of the run, hence the dependence on the other samples) on 28 gene sets (782 genes) of adaptive and innate immune cell types"),
+    "puree": dict(n_out="1", secs="0.3", engine="external", install="data::puree", species="human", status="ready", min_n="1", single="native",
+        indep="yes (diff 0)", cohort="no", needs="bulkdeconv_install(\"puree\") downloads the model files", options="", cls="fraction", packages="",
+        source="native port of PUREE 1.0 (Revkov et al. 2023, Commun Biol) after predict_purity.py; model files downloaded from skandlab/PUREE at install", version="bulkdeconv",
+        pin="data:skandlab/PUREE@5a0a702535e79e37b071971063e72fa697540818", license="CC BY-NC-SA 4.0 (non-commercial)",
+        lic_note="the PUREE model is CC BY-NC-SA 4.0, so it is not bundled: bulkdeconv_install(\"puree\") downloads it from the recorded commit (size and MD5 checked)", expr_ev="any normalisation (rank based; PUREE README); TPM used", registration="not required",
+        notes="tumour purity (cancer cell fraction) of solid tumours from a linear model on percentile ranks of 158 genes; reproduces the purities of the original test data exactly (max difference 2.2e-16); gene symbols or Ensembl IDs; one column tumor_purity"),
+    "mysort": dict(n_out="21", secs="11.5 (24 samples)", engine="external", install="cran::e1071;bioc::preprocessCore", species="human", status="conditional", min_n="1", single="native",
+        indep="no (diff 4.74 alone vs in 24)", cohort="yes", needs="", options="", cls="fraction", packages="e1071|preprocessCore",
+        source="mySORT (Chen et al. 2018, BMC Bioinformatics; 2025, BMC Cancer): SVR() of svr_without_rmse_corr.r and the 603-gene signature matrix, from the authors' Docker image lsbnb/mysort_2022", version="bulkdeconv",
+        pin="data:lsbnb/mysort_2022 latest (2022-08-22)", license="no licence stated (mySORT)",
+        lic_note="the code and the signature matrix carry no licence; distributed with attribution as for ABIS (inst/COPYRIGHTS)", expr_ev="FPKM or TPM by gene symbol (image README)", registration="not required",
+        notes="nu-support vector regression with a linear kernel on 21 immune cell types (LM22-like names; 401 of the 603 genes are in LM22, none with the same values); percentages summing to 100; quantile normalisation across the samples of the run makes values depend on the other samples; on the authors' 24-sample example, 21 samples match the published output within 0.01 and 3 differ where two nu values give nearly equal error (e1071 1.7-17 vs the 2018 version)"),
+    "bindea": dict(n_out="24", secs="0.5", engine="native", install="", species="human", status="ready", min_n="1", single="native",
+        indep="no (diff 0.165 alone vs in 4)", cohort="yes", needs="", options="", cls="enrichment_score", packages="",
+        source="Bindea et al. 2013 (Immunity): 24 immune cell gene sets, as tabulated by Senbabaoglu et al. 2016 (Genome Biology, Additional file 2, Table S1), scored by ssGSEA", version="bulkdeconv",
+        pin="data:Senbabaoglu 2016 Additional file 2", license="published gene list (Immunity article; open-access table of Genome Biology)",
+        lic_note="gene list from the articles (inst/COPYRIGHTS)", expr_ev="ssGSEA is rank based; log2(TPM + 1) used", registration="not required",
+        notes="ssGSEA (GSVA defaults) on 24 gene sets (501 genes) of innate and adaptive immune cell types, as used by Senbabaoglu et al. 2016; Bindea's own supplement gives the sets only as a PDF table, so the machine-readable table of Senbabaoglu et al. is used (one symbol, MARCH6, restored from an Excel date)"),
 }
 order = ["quantiseq", "mcp_counter", "xcell", "xcell2", "estimate", "consensus_tme", "immucellai2", "imsig",
-         "spatialdecon_safetme", "epic", "immucellai", "abis", "timer", "gedit", "danaher", "charoentong", "mmcp_counter", "dcq", "immucellai_mouse", "ssmd", "seqimmucc", "base", "immucc"]
+         "spatialdecon_safetme", "epic", "immucellai", "abis", "timer", "gedit", "danaher", "charoentong", "bindea", "puree", "mysort", "mmcp_counter", "dcq", "immucellai_mouse", "ssmd", "seqimmucc", "base", "immucc"]
 
 
 def measured(method):

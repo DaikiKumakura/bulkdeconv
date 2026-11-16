@@ -1,9 +1,9 @@
-test_that("the registry loads and holds the 21 usable methods", {
+test_that("the registry loads and holds the 24 usable methods", {
   reg <- bulkdeconv_methods()
   expect_setequal(reg$method, c(
     "quantiseq", "mcp_counter", "xcell", "estimate", "consensus_tme", "immucellai2", "imsig",
     "spatialdecon_safetme", "epic", "xcell2", "abis", "timer", "mmcp_counter", "dcq",
-    "immucellai_mouse", "ssmd", "seqimmucc", "base", "gedit", "danaher", "charoentong"))
+    "immucellai_mouse", "ssmd", "seqimmucc", "base", "gedit", "danaher", "charoentong", "puree", "bindea", "mysort"))
   expect_type(reg$installed, "logical")
 })
 
@@ -29,7 +29,7 @@ test_that("every usable method has an adapter and a parsable install spec", {
     if (!native) expect_gt(length(specs), 0)
     for (s in specs) {
       p <- bulkdeconv:::bd_parse_spec(s)
-      expect_true(p$type %in% c("cran", "bioc", "github"), info = s)
+      expect_true(p$type %in% c("cran", "bioc", "github", "data"), info = s)
       if (p$type == "github") expect_match(p$ref, "^[0-9a-f]{40}$", info = s)
     }
   }
@@ -59,11 +59,11 @@ test_that("native methods need nothing beyond the packages bulkdeconv itself imp
   nat <- reg[reg$engine == "native", ]
   expect_setequal(nat$method, c("abis", "timer", "seqimmucc", "base", "estimate", "immucellai2",
                                 "spatialdecon_safetme", "immucellai_mouse", "consensus_tme", "xcell",
-                                "mcp_counter", "mmcp_counter", "imsig", "quantiseq", "xcell2", "gedit", "danaher", "charoentong"))
+                                "mcp_counter", "mmcp_counter", "imsig", "quantiseq", "xcell2", "gedit", "danaher", "charoentong", "bindea"))
   expect_true(all(nat$install == ""))
   used <- unlist(strsplit(nat$packages, "|", fixed = TRUE))
   imports <- read.dcf(system.file("DESCRIPTION", package = "bulkdeconv"), "Imports")[1L]
   for (p in used) expect_match(imports, p, fixed = TRUE)
   expect_true(all(nat$installed))
-  expect_setequal(reg$method[reg$engine == "external"], c("epic", "dcq", "ssmd"))
+  expect_setequal(reg$method[reg$engine == "external"], c("epic", "dcq", "ssmd", "puree", "mysort"))
 })

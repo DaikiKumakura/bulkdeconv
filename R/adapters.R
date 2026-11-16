@@ -72,6 +72,18 @@ bd_adapter_fns <- list(
     sets <- readRDS(file.path(ctx$extdata, "charoentong", "gene_sets.rds"))
     list(score = t(ssgsea(log2(as.matrix(X) + 1), sets)), coverage = coverage(unique(unlist(sets)), X))
   },
+  bindea = function(X, opts, ctx) {
+    sets <- readRDS(file.path(ctx$extdata, "bindea", "gene_sets.rds"))
+    list(score = t(ssgsea(log2(as.matrix(X) + 1), sets)), coverage = coverage(unique(unlist(sets)), X))
+  },
+  puree = function(X, opts, ctx) {
+    f <- file.path(ctx$data_dirs, "puree", "puree.rds")
+    f <- f[file.exists(f)]
+    if (!length(f)) stop("PUREE data are not installed; run bulkdeconv_install(\"puree\")", call. = FALSE)
+    d <- readRDS(f[1L])
+    genes <- unique(d$conversion$HGNC[d$conversion$ENSEMBL_ID %in% d$genes])
+    list(score = puree_fit(X, d), coverage = coverage(genes, X))
+  },
   consensus_tme = function(X, opts, ctx) {
     sets <- readRDS(file.path(ctx$extdata, "consensus_tme", "gene_sets.rds"))
     list(score = consensus_tme_fit(X, sets, opts$cancer_type), coverage = coverage(unlist(sets[[opts$cancer_type]]), X))
@@ -95,6 +107,32 @@ bd_adapter_fns <- list(
   mmcp_counter = function(X, opts, ctx) {
     sig <- readRDS(file.path(ctx$extdata, "mmcp_counter", "signatures_GCRm39.rds"))
     list(score = mmcp_counter_fit(X, sig), coverage = coverage(sig$Gene.Symbol, X))
+  },
+  mysort = function(X, opts, ctx) {
+    # SVR() of mySORT (svr_without_rmse_corr.r in the lsbnb/mysort_2022 image):
+    # quantile-normalised mixture, standardised signature, linear nu-SVR with
+    # nu chosen among 0.25, 0.5, 0.75 by RMSE, negative weights set to 0,
+    # weights scaled to 100
+    S <- readRDS(reference_file(ctx, "mysort", "signature_matrix.rds"))
+    Y <- preprocessCore::normalize.quantiles(as.matrix(X))
+    dimnames(Y) <- dimnames(X)
+    genes <- intersect(rownames(S), rownames(Y))
+    S <- S[genes, , drop = FALSE]; Y <- Y[genes, , drop = FALSE]
+    S <- (S - mean(S)) / stats::sd(as.vector(S))
+    fit_w <- function(y, nu) {
+      m <- e1071::svm(S, y, scale = FALSE, type = "nu-regression", kernel = "linear", nu = nu)
+      w <- t(m$coefs) %*% m$SV
+      w[w < 0] <- 0
+      w / sum(w)
+    }
+    out <- t(vapply(seq_len(ncol(Y)), function(i) {
+      y <- Y[, i]; y <- (y - mean(y)) / stats::sd(y)
+      nus <- c(0.25, 0.5, 0.75)
+      rmse <- vapply(nus, function(nu) sqrt(mean((drop(S %*% t(fit_w(y, nu))) - y)^2)), 0)
+      drop(fit_w(y, nus[which.min(rmse)])) * 100
+    }, numeric(ncol(S))))
+    dimnames(out) <- list(colnames(X), colnames(S))
+    list(score = out, coverage = coverage(rownames(S), X))
   },
   dcq = function(X, opts, ctx) {
     e <- new.env()

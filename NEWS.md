@@ -1,10 +1,17 @@
 # bulkdeconv (development version)
 
-* Three signature-based human methods, implemented in the package with their
+* Four signature-based human methods, implemented in the package with their
   data included: `gedit` (GEDIT, Nadel et al. 2021; presets `"HPCA"` with
   stromal cell types and `"ImmunoStates"`), `danaher` (marker-gene scores of
-  14 immune populations, Danaher et al. 2017) and `charoentong` (ssGSEA on the
-  28 immune cell gene sets of Charoentong et al. 2017).
+  14 immune populations, Danaher et al. 2017), `charoentong` (ssGSEA on the
+  28 immune cell gene sets of Charoentong et al. 2017) and `bindea` (ssGSEA on
+  the 24 immune cell gene sets of Bindea et al. 2013).
+* `puree`: tumor purity with PUREE (Revkov et al. 2023), computed in the
+  package; the model (CC BY-NC-SA 4.0) is downloaded by
+  `bulkdeconv_install("puree")` from a recorded commit and checked.
+* `mysort`: mySORT (Chen et al. 2018) with its signature matrix; needs
+  `bulkdeconv_install("mysort")` (e1071, preprocessCore).
+* BayesPrism was removed.
 
 # bulkdeconv 0.1.0
 

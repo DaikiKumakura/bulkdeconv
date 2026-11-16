@@ -83,3 +83,41 @@ bd_native$danaher_fit <- function(X, markers) {
   s <- matrix(s, nrow = ncol(L), dimnames = list(colnames(L), names(markers)))
   s
 }
+
+# ---- PUREE tumour purity ----
+# Port of PUREE 1.0 (Revkov et al. 2023; predict_purity.py at skandlab/PUREE
+# 5a0a702) with HGNC symbols as input: symbols are mapped to the Ensembl IDs of
+# the ranking universe, each sample is ranked over the universe genes present
+# (percentile rank, ties to the minimum, as pandas rank(method = "min",
+# pct = TRUE)), the 158 model genes are taken, missing ones get the training
+# medians, and the linear model gives the purity. `d` is the RDS made by
+# bulkdeconv_install("puree").
+bd_native$puree_fit <- function(X, d) {
+  X <- as.matrix(X)
+  U <- matrix(NA_real_, length(d$universe), ncol(X), dimnames = list(d$universe, colnames(X)))
+  if (mean(grepl("^ENSG[0-9]+", rownames(X))) > 0.5) {
+    # Ensembl gene IDs (version suffixes dropped), as PUREE's default input
+    ids <- sub("\\.[0-9]+$", "", rownames(X))
+    keep <- ids %in% d$universe & !duplicated(ids)
+    U[ids[keep], ] <- X[keep, , drop = FALSE]
+  } else {
+    conv <- d$conversion[d$conversion$ENSEMBL_ID %in% d$universe, , drop = FALSE]
+    conv <- conv[!duplicated(conv), , drop = FALSE]
+    conv <- conv[conv$HGNC %in% rownames(X), , drop = FALSE]
+    conv <- conv[!duplicated(conv$ENSEMBL_ID), , drop = FALSE]
+    U[conv$ENSEMBL_ID, ] <- X[conv$HGNC, , drop = FALSE]
+  }
+  R <- apply(U, 2L, function(v) {
+    ok <- !is.na(v)
+    r <- rep(NA_real_, length(v))
+    r[ok] <- rank(v[ok], ties.method = "min") / sum(ok)
+    r
+  })
+  if (!is.matrix(R)) R <- matrix(R, ncol = ncol(X))
+  rownames(R) <- d$universe
+  F <- R[d$genes, , drop = FALSE]
+  miss <- is.na(F)
+  F[miss] <- matrix(d$medians, nrow(F), ncol(F))[miss]
+  purity <- d$intercept + drop(crossprod(F, d$coef))
+  matrix(purity, ncol = 1L, dimnames = list(colnames(X), "tumor_purity"))
+}

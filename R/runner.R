@@ -4,7 +4,8 @@
 bd_cache_dir <- function() tools::R_user_dir("bulkdeconv", "cache")
 
 bd_run_isolated <- function(adapter, X, opts, packages, libs = bd_lib_paths()) {
-  ctx <- list(cache_dir = bd_cache_dir(), extdata = system.file("extdata", package = "bulkdeconv"))
+  ctx <- list(cache_dir = bd_cache_dir(), extdata = system.file("extdata", package = "bulkdeconv"),
+              data_dirs = file.path(libs, "_bulkdeconv_data"))
   out <- tryCatch(
     callr::r(
       function(adapter, X, opts, ctx, packages) {

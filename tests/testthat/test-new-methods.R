@@ -64,3 +64,54 @@ test_that("the three methods run through bulkdeconv()", {
   expect_identical(ncol(bulkdeconv(X, "tpm", "human", "gedit", preset = "ImmunoStates")$score), 20L)
   expect_error(bulkdeconv(X, "tpm", "human", "gedit", preset = "LM22"), "must be one of")
 })
+
+test_that("puree ranks over the universe, imputes missing genes and applies the linear model", {
+  d <- list(universe = paste0("ENSG", 1:6), genes = c("ENSG2", "ENSG5", "ENSG6"), coef = c(0.5, -0.2, 1),
+            intercept = 0.1, medians = c(0.4, 0.6, 0.9),
+            conversion = data.frame(ENSEMBL_ID = paste0("ENSG", 1:6), HGNC = paste0("G", 1:6)))
+  X <- matrix(c(5, 1, 3, 3, 9, 0,  1, 2, 3, 4, 5, 6), 6, 2, dimnames = list(paste0("G", 1:6), c("a", "b")))
+  X <- X[-6, , drop = FALSE]  # G6 missing: imputed with its median
+  got <- run_native("puree_fit", X, d)
+  rk_a <- c(1, 5) / 5
+  expect_equal(got["a", "tumor_purity"], 0.1 + 0.5 * rk_a[1] - 0.2 * rk_a[2] + 1 * 0.9)
+  expect_equal(got["b", "tumor_purity"], 0.1 + 0.5 * 2 / 5 - 0.2 * 5 / 5 + 1 * 0.9)
+  ens <- X; rownames(ens) <- paste0("ENSG", 1:5, ".3")
+  expect_equal(run_native("puree_fit", ens, d), got)
+  expect_equal(run_native("puree_fit", X[, 1, drop = FALSE], d), got[1, , drop = FALSE])
+})
+
+test_that("bulkdeconv_install('puree') downloads, checks and reads the model", {
+  skip_on_cran()
+  skip_if_offline("raw.githubusercontent.com")
+  lib <- file.path(tempdir(), "puree-lib")
+  bulkdeconv_install("puree", lib = lib, ask = FALSE)
+  d <- readRDS(file.path(lib, "_bulkdeconv_data", "puree", "puree.rds"))
+  expect_length(d$genes, 158L)
+  expect_length(d$coef, 158L)
+  expect_length(d$medians, 158L)
+  expect_equal(d$intercept, 0.780836832988957, tolerance = 1e-14)
+  expect_true(all(d$genes %in% d$universe))
+})
+
+test_that("bindea gene sets are the 24 published immune cell types", {
+  sets <- readRDS(ext("bindea", "gene_sets.rds"))
+  expect_length(sets, 24L)
+  expect_identical(length(unique(unlist(sets))), 501L)
+  expect_setequal(sets$DC, c("CCL13", "CCL17", "CCL22", "CD209", "HSD11B1", "NPR1", "PPFIBP2"))
+  expect_true("MARCH6" %in% sets$`NK CD56bright cells`)
+  expect_false(any(c("Angiogenesis", "Antigen presenting machinery") %in% names(sets)))
+})
+
+test_that("mysort recovers the composition of mixtures of its signature", {
+  skip_if_not_installed("e1071")
+  skip_if_not_installed("preprocessCore")
+  S <- readRDS(ext("mysort", "signature_matrix.rds"))
+  expect_identical(dim(S), c(603L, 21L))
+  ad <- bulkdeconv:::bd_get_adapter("mysort")
+  set.seed(3)
+  P <- matrix(stats::rexp(ncol(S) * 4), ncol(S)); P <- t(t(P) / colSums(P))
+  X <- S %*% P; colnames(X) <- paste0("s", 1:4)
+  r <- ad(X, list(), list(extdata = dirname(ext("mysort", "signature_matrix.rds")) |> dirname()))$score
+  expect_equal(unname(rowSums(r)), rep(100, 4), tolerance = 1e-8)
+  expect_gt(stats::cor(as.vector(r), as.vector(t(P)) * 100), 0.8)
+})
