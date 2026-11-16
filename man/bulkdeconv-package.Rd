@@ -5,7 +5,7 @@
 \alias{bulkdeconv-package}
 \title{bulkdeconv: cell-type deconvolution of tumor bulk RNA-seq through one function}
 \description{
-bulkdeconv runs 19 published cell-type deconvolution and cell-abundance
+bulkdeconv runs 18 published cell-type deconvolution and cell-abundance
 methods for human and mouse tumor bulk RNA-seq through one call, and
 returns the same kind of result for all of them.
 }
@@ -15,12 +15,12 @@ returns the same kind of result for all of them.
 \item \code{\link[=bulkdeconv_methods]{bulkdeconv_methods()}} lists the methods with species, input scale,
 minimum number of samples, output kind and licence.
 \item \code{\link[=bulkdeconv]{bulkdeconv()}} runs one method on a gene symbol by sample table (TPM;
-counts for \code{seqimmucc} and \code{bayesprism}) and returns \code{score} (samples x cell types),
+counts for \code{seqimmucc}) and returns \code{score} (samples x cell types),
 \code{metadata} (what the numbers are and what may be compared) and \code{qc}.
 }
 
 Fifteen methods are implemented in the package and run after installing
-it; their reference data come with the package. EPIC, BayesPrism, DCQ and SSMD run
+it; their reference data come with the package. EPIC, DCQ and SSMD run
 from their original packages: install them once with
 \code{\link[=bulkdeconv_install]{bulkdeconv_install()}} into a private library.
 }

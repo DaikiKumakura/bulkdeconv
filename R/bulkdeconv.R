@@ -12,16 +12,13 @@
 #'   every sample must contain at least one nonzero value.
 #' @param expr `"count"` or `"tpm"`: the scale of the values in `data`.
 #'   Each method accepts one scale (see `expr_accepted` in
-#'   [bulkdeconv_methods()]): `"count"` for seqimmucc and bayesprism, `"tpm"` for the others.
+#'   [bulkdeconv_methods()]): `"count"` for seqimmucc, `"tpm"` for the others.
 #'   The wrong one is refused with a message that says so.
 #' @param species `"human"` or `"mouse"`.
 #' @param method A method ID; see [bulkdeconv_methods()].
 #' @param ... Method-specific options, named: `preset` (xcell2),
 #'   `cancer_type` (consensus_tme; required for timer), `tissue` (immucellai2,
-#'   ssmd), `n_permutations` and `seed` (base), `model` (required), `n_cores`
-#'   and `seed` (bayesprism; 23 tumor models listed in
-#'   `inst/registry/bayesprism_models.csv`). Unknown or
-#'   invalid options are errors.
+#'   ssmd), `n_permutations` and `seed` (base). Unknown or invalid options are errors.
 #' @details
 #' Use [bulkdeconv_methods()] to check the input scale, minimum sample count
 #' and output class. Scores from different methods can have different units.

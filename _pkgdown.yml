@@ -7,7 +7,7 @@ template:
 home:
   title: "bulkdeconv: cell-type deconvolution of tumor bulk RNA-seq"
   description: >-
-    19 published cell-type deconvolution methods for human and mouse tumor
+    18 published cell-type deconvolution methods for human and mouse tumor
     bulk RNA-seq through one R function, 15 of them built in.
 
 reference:
