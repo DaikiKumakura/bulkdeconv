@@ -1,4 +1,4 @@
-# bulkdeconv (development version)
+# bulkdeconv 0.2.0
 
 * Four signature-based human methods, implemented in the package with their
   data included: `gedit` (GEDIT, Nadel et al. 2021; presets `"HPCA"` with

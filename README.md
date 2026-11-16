@@ -1,7 +1,7 @@
 # bulkdeconv
 
 <!-- badges: start -->
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24210482.svg)](https://doi.org/10.5281/zenodo.24210482)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24210481.svg)](https://doi.org/10.5281/zenodo.24210481)
 <!-- badges: end -->
 
 **Cell-type deconvolution of human and mouse tumor bulk RNA-seq: 24
@@ -188,7 +188,8 @@ listed in [`inst/COPYRIGHTS`](https://github.com/DaikiKumakura/bulkdeconv/blob/m
 
 ## Citation
 
-Cite the archived version: <https://doi.org/10.5281/zenodo.24210482>, and the
+Cite the archived version: <https://doi.org/10.5281/zenodo.24210481> (all
+versions; Zenodo lists the DOI of each), and the
 method you used: its source is listed in `bulkdeconv_methods()` and
 [`inst/COPYRIGHTS`](https://github.com/DaikiKumakura/bulkdeconv/blob/main/inst/COPYRIGHTS).
 

@@ -6,17 +6,17 @@ authors:
   - family-names: Kumakura
     given-names: Daiki
     orcid: "https://orcid.org/0000-0001-9859-0720"
-version: "0.1.0"
-date-released: "2026-11-12"
+version: "0.2.0"
+date-released: "2026-11-16"
 identifiers:
   - type: doi
-    value: "10.5281/zenodo.24210482"
-    description: "Archived release (Zenodo)"
+    value: "10.5281/zenodo.24210481"
+    description: "Archived releases (Zenodo concept DOI; resolves to the latest version)"
 repository-code: "https://github.com/DaikiKumakura/bulkdeconv"
 url: "https://daikikumakura.github.io/software/bulkdeconv.html"
 license: GPL-3.0-only
 abstract: >-
-  An R package that estimates cell-type composition or abundance from human and mouse tumor bulk RNA-seq through one function, bulkdeconv(data, expr, species, method). It provides 18 published methods; 15 are implemented in the package and run after installation, and 3 use their upstream packages. Each method reports its scores, metadata and quality-control information, and the interpretation of the scores depends on the method.
+  An R package that estimates cell-type composition or abundance from human and mouse tumor bulk RNA-seq through one function, bulkdeconv(data, expr, species, method). It provides 24 published methods; 19 are implemented in the package and run after installation, and 5 need one install step (their upstream packages or, for PUREE, a downloaded model). Each method reports its scores, metadata and quality-control information, and the interpretation of the scores depends on the method.
 keywords:
   - "RNA-seq"
   - "cell-type deconvolution"
