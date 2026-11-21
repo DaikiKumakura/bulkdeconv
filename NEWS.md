@@ -1,4 +1,4 @@
-# bulkdeconv (development)
+# bulkdeconv 0.3.0
 
 * `dualsimplex`: reference-free deconvolution with DualSimplex (Kleverov et al.
   2025). It needs no signature or single-cell reference: it factorizes the
