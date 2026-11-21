@@ -25,6 +25,7 @@ CLASS_NOTE = {
     "enrichment_score": "relative score within the run; not comparable across cell types or across studies",
     "abundance_estimate": "model coefficients proportional to cell abundance; comparable across samples for one cell type",
     "relative_quantity": "relative cell quantity; designed for expression changes",
+    "latent_component": "relative contribution of data-derived components within this run; components are not cell types and are not comparable across runs",
     "fraction_modules": "data-dependent marker modules; map to cell types before comparing",
 }
 
@@ -177,6 +178,13 @@ M = {
         pin="data:lsbnb/mysort_2022 latest (2022-08-22)", license="no licence stated (mySORT)",
         lic_note="the code and the signature matrix carry no licence; distributed with attribution as for ABIS (inst/COPYRIGHTS)", expr_ev="FPKM or TPM by gene symbol (image README)", registration="not required",
         notes="nu-support vector regression with a linear kernel on 21 immune cell types (LM22-like names; 401 of the 603 genes are in LM22, none with the same values); percentages summing to 100; quantile normalisation across the samples of the run makes values depend on the other samples; on the authors' 24-sample example, 21 samples match the published output within 0.01 and 3 differ where two nu values give nearly equal error (e1071 1.7-17 vs the 2018 version)"),
+    "dualsimplex": dict(n_out="n_components", secs="1 (30 samples, 2000 genes, K = 3)", engine="external", install=GH + "artyomovlab/DualSimplex@089c982f8ea41e60365675c8e8013d095c3e5eaf",
+        species="human|mouse", status="conditional", min_n="5", single="unsupported", indep="no (cohort-derived components)", cohort="yes",
+        needs="n_components (2 to 20, required)", options="n_components|seed", cls="latent_component", packages="DualSimplex",
+        source="DualSimplex 1.2 (Kleverov et al. 2025, Genome Biology), github.com/artyomovlab/DualSimplex", version="1.2",
+        pin="089c982f8ea41e60365675c8e8013d095c3e5eaf", license="MIT + file LICENSE (DualSimplex)",
+        lic_note="MIT; run as the installed package, not copied into bulkdeconv", expr_ev="non-negative expression; TPM used", registration="not required",
+        notes="reference-free: no signature or single-cell reference; factorizes this run's expression matrix into n_components components and returns each sample's share, summing to 1; the components are not labelled, so a user must assign cell types afterwards (for example by marker genes); needs more samples than components and, in practice, many samples; random initialisation, fixed by the seed option; compiles C++ code on installation"),
     "bindea": dict(n_out="24", secs="0.5", engine="native", install="", species="human", status="ready", min_n="1", single="native",
         indep="no (diff 0.165 alone vs in 4)", cohort="yes", needs="", options="", cls="enrichment_score", packages="",
         source="Bindea et al. 2013 (Immunity): 24 immune cell gene sets, as tabulated by Senbabaoglu et al. 2016 (Genome Biology, Additional file 2, Table S1), scored by ssGSEA", version="bulkdeconv",
@@ -185,7 +193,7 @@ M = {
         notes="ssGSEA (GSVA defaults) on 24 gene sets (501 genes) of innate and adaptive immune cell types, as used by Senbabaoglu et al. 2016; Bindea's own supplement gives the sets only as a PDF table, so the machine-readable table of Senbabaoglu et al. is used (one symbol, MARCH6, restored from an Excel date)"),
 }
 order = ["quantiseq", "mcp_counter", "xcell", "xcell2", "estimate", "consensus_tme", "immucellai2", "imsig",
-         "spatialdecon_safetme", "epic", "immucellai", "abis", "timer", "gedit", "danaher", "charoentong", "bindea", "puree", "mysort", "mmcp_counter", "dcq", "immucellai_mouse", "ssmd", "seqimmucc", "base", "immucc"]
+         "spatialdecon_safetme", "epic", "immucellai", "abis", "timer", "gedit", "danaher", "charoentong", "bindea", "puree", "mysort", "mmcp_counter", "dcq", "immucellai_mouse", "ssmd", "seqimmucc", "base", "immucc", "dualsimplex"]
 
 
 def measured(method):

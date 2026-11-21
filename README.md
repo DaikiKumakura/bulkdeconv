@@ -4,7 +4,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24210481.svg)](https://doi.org/10.5281/zenodo.24210481)
 <!-- badges: end -->
 
-**Cell-type deconvolution of human and mouse tumor bulk RNA-seq: 24
+**Cell-type deconvolution of human and mouse tumor bulk RNA-seq: 25
 published methods through one function.**
 
 ```r
@@ -12,12 +12,12 @@ res <- bulkdeconv(tpm, expr = "tpm", species = "human", method = "quantiseq")
 res$score   # samples x cell types
 ```
 
-- **One interface for 24 methods.** quanTIseq, MCP-counter, xCell, xCell2,
+- **One interface for 25 methods.** quanTIseq, MCP-counter, xCell, xCell2,
   ESTIMATE, EPIC, TIMER, GEDIT, PUREE (tumor purity) and others for human; mMCP-counter, seq-ImmuCC, BASE,
   DCQ and others for mouse. The call and the result look the same for all.
 - **Installing the package is enough for 19 of them.** They are implemented
   inside bulkdeconv and reproduce the original output; their reference data
-  come with the package. EPIC, DCQ, SSMD, PUREE and mySORT need one extra install step.
+  come with the package. EPIC, DCQ, SSMD, PUREE, mySORT and DualSimplex need one extra install step.
 - **The result says how to read it.** Every result states whether the numbers
   are fractions, abundance scores or enrichment scores, and what can be
   compared, with input and signature-coverage checks.
@@ -122,6 +122,7 @@ returns); a numeric matrix with row names also works.
 | `bindea` | human | yes | enrichment score | 1 |
 | `puree` | human | no: `bulkdeconv_install("puree")` (downloads the model) | fraction (tumor purity) | 1 |
 | `mysort` | human | no: `bulkdeconv_install("mysort")` | fraction (percent) | 1 |
+| `dualsimplex` | human, mouse | no: `bulkdeconv_install("dualsimplex")` | latent component (share per sample) | 5 |
 | `epic` | human | no: `bulkdeconv_install("epic")` | fraction | 1 |
 | `mmcp_counter` | mouse | yes | abundance score | 1 |
 | `immucellai_mouse` | mouse | yes | fraction | 2 |
@@ -158,7 +159,7 @@ bulkdeconv(tpm, "tpm", "mouse", "xcell2", preset = "ImmGenData")
   with each other.
 - Methods whose output depends on the other samples in the run (`xcell`,
   `xcell2`, `consensus_tme`, `imsig`, `timer`, `charoentong`, `bindea`,
-  `mysort`, `immucellai_mouse`, `ssmd`, `base`) warn when there are fewer than 10 samples. Use samples from one
+  `mysort`, `immucellai_mouse`, `ssmd`, `base`, `dualsimplex`) warn when there are fewer than 10 samples. Use samples from one
   cohort for relative comparisons.
 - A single sample is accepted only where the method can handle it. For xCell2,
   a one-sample run returns zero for every cell type, because the method

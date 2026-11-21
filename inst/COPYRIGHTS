@@ -49,6 +49,11 @@ CODE
     distributed with bulkdeconv: bulkdeconv_install("puree") downloads the
     model files from that commit into the private library, checks their size
     and MD5, and reads the coefficients from them.
+  - DualSimplex 1.2 (MIT + file LICENSE; Copyright the DualSimplex authors, Kleverov D,
+    Aladyeva E, Serdyukov A, Artyomov M; github.com/artyomovlab/DualSimplex at commit
+    089c982). Not copied: bulkdeconv_install("dualsimplex") installs it into the private
+    library and runs it there. Kleverov D, et al. Genome Biol 2025,
+    doi:10.1186/s13059-025-03910-1
   - mySORT: the SVR() function of svr_without_rmse_corr.r in the authors'
     Docker image lsbnb/mysort_2022 (no licence stated), run with e1071 and
     preprocessCore installed by bulkdeconv_install("mysort").

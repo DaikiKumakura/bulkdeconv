@@ -166,6 +166,23 @@ bd_adapter_fns <- list(
     list(score = base_scores(X, comp, map, perm = opts$n_permutations, seed = opts$seed),
          coverage = coverage(rownames(comp), X))
   },
+  dualsimplex = function(X, opts, ctx) {
+    # Reference-free: factorizes the expression matrix of this run into K components.
+    K <- opts$n_components
+    if (ncol(X) <= K) {
+      stop("dualsimplex needs more samples than components (", ncol(X), " samples, n_components = ", K, ").", call. = FALSE)
+    }
+    X <- X[rowSums(X) > 0, , drop = FALSE]
+    set.seed(opts$seed)
+    dso <- DualSimplex::DualSimplexSolver$new()
+    dso$set_data(X)
+    sol <- dso$factorize(K, optim_iteraitons = 10000)
+    H <- sol$H
+    H <- sweep(H, 2, colSums(H), "/")
+    out <- t(H)
+    dimnames(out) <- list(colnames(X), paste0("component_", seq_len(K)))
+    list(score = out)
+  },
   ssmd = function(X, opts, ctx) {
     r <- SSMD::SSMD(X, opts$tissue)
     list(score = t(as_score(r$Proportion)))

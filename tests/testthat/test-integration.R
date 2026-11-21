@@ -105,3 +105,22 @@ test_that("rsemverse-style output (non-integer values) is accepted", {
   skip_if(!bulkdeconv:::bd_is_installed("quantiseq"))
   expect_no_error(suppressWarnings(bulkdeconv(d, "tpm", "human", "quantiseq")))
 })
+
+test_that("dualsimplex recovers the proportions of simulated mixtures", {
+  local_method_library()
+  skip_if(!"DualSimplex" %in% rownames(utils::installed.packages(lib.loc = libs)), "DualSimplex is not installed")
+  set.seed(1)
+  G <- 1500; N <- 24; K <- 3
+  Wm <- matrix(rexp(G * K, 0.2), G, K)
+  Hm <- apply(matrix(rexp(K * N), K, N), 2, function(x) x / sum(x))
+  V <- Wm %*% Hm + matrix(abs(rnorm(G * N, 0, 0.5)), G, N)
+  d <- data.frame(gene = paste0("GENE", seq_len(G)), V, check.names = FALSE)
+  colnames(d)[-1] <- paste0("S", seq_len(N))
+  res <- suppressWarnings(bulkdeconv(d, expr = "tpm", species = "human", method = "dualsimplex", n_components = 3))
+  expect_equal(dim(res$score), c(N, K))
+  expect_equal(unname(rowSums(res$score)), rep(1, N), tolerance = 1e-8)
+  best <- apply(abs(stats::cor(res$score, t(Hm))), 1, max)
+  expect_true(all(best > 0.95))
+  expect_error(suppressWarnings(bulkdeconv(d, expr = "tpm", species = "human", method = "dualsimplex")), "n_components")
+  expect_error(suppressWarnings(bulkdeconv(d[, 1:3], expr = "tpm", species = "human", method = "dualsimplex", n_components = 3)), "sample")
+})

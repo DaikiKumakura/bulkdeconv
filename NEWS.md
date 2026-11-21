@@ -1,3 +1,13 @@
+# bulkdeconv (development)
+
+* `dualsimplex`: reference-free deconvolution with DualSimplex (Kleverov et al.
+  2025). It needs no signature or single-cell reference: it factorizes the
+  expression matrix of the run into `n_components` components (required, 2 to
+  20) and returns each sample's share, summing to 1 (`output_class =
+  latent_component`). The components are not cell types; assign them
+  afterwards, for example with marker genes. Needs more samples than
+  components; needs `bulkdeconv_install("dualsimplex")` (compiles C++ code).
+
 # bulkdeconv 0.2.0
 
 * Four signature-based human methods, implemented in the package with their

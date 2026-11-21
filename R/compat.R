@@ -76,6 +76,8 @@ bd_option_spec <- function(method, species) {
     consensus_tme = list(cancer_type = list(
       default = "Unfiltered",
       values = c("Unfiltered", bd_tcga_types))),
+    dualsimplex = list(n_components = list(default = NULL, range = c(2L, 20L)),
+                       seed = list(default = 1L, range = c(0L, 1000000L))),
     gedit = list(preset = list(default = "HPCA", values = c("HPCA", "ImmunoStates"))),
     immucellai2 = list(tissue = list(default = "tumor", values = c("tumor", "non-tumor"))),
     ssmd = list(tissue = list(default = "Inflammatory",
@@ -99,8 +101,9 @@ bd_check_options <- function(method, opts, species) {
   for (nm in names(spec)) {
     val <- opts[[nm]] %||% spec[[nm]]$default
     if (is.null(val)) {
-      bd_abort("Option `", nm, "` is required for '", method, "'. One of: ",
-               paste(spec[[nm]]$values, collapse = ", "), ".")
+      bd_abort("Option `", nm, "` is required for '", method, "'. ",
+               if (!is.null(spec[[nm]]$range)) paste0("A whole number from ", spec[[nm]]$range[1L], " to ", spec[[nm]]$range[2L], ".")
+               else paste0("One of: ", paste(spec[[nm]]$values, collapse = ", "), "."))
     }
     if (!is.null(spec[[nm]]$range)) {
       r <- spec[[nm]]$range

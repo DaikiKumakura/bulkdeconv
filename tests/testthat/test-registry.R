@@ -1,9 +1,9 @@
-test_that("the registry loads and holds the 24 usable methods", {
+test_that("the registry loads and holds the 25 usable methods", {
   reg <- bulkdeconv_methods()
   expect_setequal(reg$method, c(
     "quantiseq", "mcp_counter", "xcell", "estimate", "consensus_tme", "immucellai2", "imsig",
     "spatialdecon_safetme", "epic", "xcell2", "abis", "timer", "mmcp_counter", "dcq",
-    "immucellai_mouse", "ssmd", "seqimmucc", "base", "gedit", "danaher", "charoentong", "puree", "bindea", "mysort"))
+    "immucellai_mouse", "ssmd", "seqimmucc", "base", "gedit", "danaher", "charoentong", "puree", "bindea", "mysort", "dualsimplex"))
   expect_type(reg$installed, "logical")
 })
 
@@ -65,5 +65,5 @@ test_that("native methods need nothing beyond the packages bulkdeconv itself imp
   imports <- read.dcf(system.file("DESCRIPTION", package = "bulkdeconv"), "Imports")[1L]
   for (p in used) expect_match(imports, p, fixed = TRUE)
   expect_true(all(nat$installed))
-  expect_setequal(reg$method[reg$engine == "external"], c("epic", "dcq", "ssmd", "puree", "mysort"))
+  expect_setequal(reg$method[reg$engine == "external"], c("epic", "dcq", "ssmd", "puree", "mysort", "dualsimplex"))
 })
