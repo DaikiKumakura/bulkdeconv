@@ -3,16 +3,49 @@ url: https://daikikumakura.github.io/bulkdeconv/
 
 template:
   bootstrap: 5
+  bslib:
+    bg: "#ffffff"
+    fg: "#252525"
+    primary: "#25577b"
+    border-color: "#dddddd"
+    line-height-base: 1.65
+    headings-font-weight: 500
 
 home:
   title: "bulkdeconv: cell-type deconvolution of tumor bulk RNA-seq"
   description: >-
-    24 published cell-type deconvolution methods for human and mouse tumor
+    25 published cell-type deconvolution methods for human and mouse tumor
     bulk RNA-seq through one R function, 19 of them built in.
+
+navbar:
+  bg: light
+  type: light
+  structure:
+    left: [start, reference, articles, news, downloads]
+    right: [search, github]
+  components:
+    start:
+      text: Get started
+      menu:
+        - text: Install
+          href: "index.html#installation"
+        - text: First example
+          href: "index.html#quick-start"
+    downloads:
+      text: Downloads
+      menu:
+        - text: Release
+          href: "https://github.com/DaikiKumakura/bulkdeconv/releases/tag/v0.3.0"
+        - text: R-universe
+          href: "https://daikikumakura.r-universe.dev/bulkdeconv"
+        - text: Zenodo
+          href: "https://doi.org/10.5281/zenodo.24430482"
+        - text: Portfolio
+          href: "https://daikikumakura.github.io/software/bulkdeconv.html"
 
 reference:
   - title: Run and install methods
-    desc: "Choose a method, run it, and install the three that need their original packages."
+    desc: "Choose a method, run it, and install optional methods or models."
     contents:
       - bulkdeconv
       - bulkdeconv_methods
