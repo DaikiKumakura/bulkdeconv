@@ -44,7 +44,7 @@ res$qc                       # input and signature-coverage checks
 
 ## Documentation
 
-[Function reference](https://daikikumakura.github.io/bulkdeconv/reference/) · [Changelog](https://daikikumakura.github.io/bulkdeconv/news/) · [Releases](https://github.com/DaikiKumakura/bulkdeconv/releases)
+[Package website](https://daikikumakura.github.io/bulkdeconv/) · [Function reference](https://daikikumakura.github.io/bulkdeconv/reference/) · [Changelog](https://daikikumakura.github.io/bulkdeconv/news/) · [Releases](https://github.com/DaikiKumakura/bulkdeconv/releases) · [R-universe](https://daikikumakura.r-universe.dev/bulkdeconv)
 
 ## Workflow
 
@@ -194,7 +194,21 @@ bulkdeconv(tpm, "tpm", "mouse", "xcell2", preset = "ImmGenData")
 
 </details>
 
-## Validation
+## Related tools
+
+<details>
+<summary>Show details</summary>
+
+- [rsemverse](https://daikikumakura.github.io/rsemverse/) reads RSEM files
+  into the gene symbol by sample table that bulkdeconv takes.
+- [rsemflow](https://daikikumakura.github.io/rsemflow/) runs DESeq2, GSEA and
+  GSVA from the same RSEM files.
+
+</details>
+
+<a id="validation"></a>
+
+## Validation and limitations
 
 The 15 built-in methods of the first release are checked in the tests against
 output recorded from the original implementations; on a clean installation
@@ -208,18 +222,6 @@ others differ where two of its model settings fit almost equally well). R CMD ch
 Sources, licences and the few deliberate differences from the originals are
 listed in [`inst/COPYRIGHTS`](https://github.com/DaikiKumakura/bulkdeconv/blob/main/inst/COPYRIGHTS) and the registry
 ([`inst/registry/`](https://github.com/DaikiKumakura/bulkdeconv/tree/main/inst/registry)).
-
-## Related tools
-
-<details>
-<summary>Show details</summary>
-
-- [rsemverse](https://daikikumakura.github.io/rsemverse/) reads RSEM files
-  into the gene symbol by sample table that bulkdeconv takes.
-- [rsemflow](https://daikikumakura.github.io/rsemflow/) runs DESeq2, GSEA and
-  GSVA from the same RSEM files.
-
-</details>
 
 ## Citation
 
