@@ -13,3 +13,4 @@
 ^_pkgdown\.yml$
 ^_site$
 ^CITATION\.cff$
+^README-GUIDE\.md$
