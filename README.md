@@ -248,10 +248,11 @@ listed in [`inst/COPYRIGHTS`](https://github.com/DaikiKumakura/bulkdeconv/blob/m
 
 ## Citation
 
-Cite the archived version: <https://doi.org/10.5281/zenodo.24210481> (all
-versions; Zenodo lists the DOI of each), and the
-method you used: its source is listed in `bulkdeconv_methods()` and
-[`inst/COPYRIGHTS`](https://github.com/DaikiKumakura/bulkdeconv/blob/main/inst/COPYRIGHTS).
+Kumakura, D. (2026). *bulkdeconv: Cell-Type Deconvolution of Tumor Bulk RNA-Seq Through One Function* [Software]. [DOI: 10.5281/zenodo.24210481](https://doi.org/10.5281/zenodo.24210481).
+
+Citation metadata: [CITATION.cff](CITATION.cff).
+
+Also cite the methods used. Sources are listed by `bulkdeconv_methods()` and in [inst/COPYRIGHTS](https://github.com/DaikiKumakura/bulkdeconv/blob/main/inst/COPYRIGHTS).
 
 ## License
 
