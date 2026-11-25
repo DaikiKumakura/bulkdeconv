@@ -228,9 +228,8 @@ versions; Zenodo lists the DOI of each), and the
 method you used: its source is listed in `bulkdeconv_methods()` and
 [`inst/COPYRIGHTS`](https://github.com/DaikiKumakura/bulkdeconv/blob/main/inst/COPYRIGHTS).
 
-## Licence
+## License
 
-GPL-3. The built-in methods are ports of published code (GPL-2 or later,
-GPL-3, MIT); sources are in [`inst/COPYRIGHTS`](https://github.com/DaikiKumakura/bulkdeconv/blob/main/inst/COPYRIGHTS). The three
-separately installed methods keep their own licences, which the registry lists
-and which are reported when a method runs.
+This project is licensed under GPL-3.0-only. See [LICENSE.md](LICENSE.md) for the license terms.
+
+Third-party code and data are documented in [inst/COPYRIGHTS](https://github.com/DaikiKumakura/bulkdeconv/blob/main/inst/COPYRIGHTS). Separately installed methods retain their own licenses.
