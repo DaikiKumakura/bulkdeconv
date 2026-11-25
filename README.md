@@ -194,6 +194,29 @@ bulkdeconv(tpm, "tpm", "mouse", "xcell2", preset = "ImmGenData")
 
 </details>
 
+## Consensus across methods
+
+Methods disagree, and their numbers have different units. `bulkdeconv_consensus()`
+combines several results for the same samples into one score per lineage (B cell,
+CD4 T, CD8 T, NK, monocyte, macrophage, neutrophil, dendritic, fibroblast,
+endothelial, and tumor content from PUREE and the inverted ESTIMATE score):
+
+```r
+res  <- lapply(c("quantiseq", "mcp_counter", "xcell"), function(m)
+  bulkdeconv(tpm, expr = "tpm", species = "human", method = m))
+cons <- bulkdeconv_consensus(res)
+cons$score       # mean percentile rank of each sample, per lineage
+cons$agreement   # how well the methods agree, per lineage (Spearman)
+```
+
+The value is a rank within the run, so it orders the samples for one lineage. It is
+not a fraction, it cannot be compared between lineages, and it changes when samples
+are added. It needs at least 5 samples, and a lineage appears only when two methods
+cover it. Low or negative agreement means the methods order the samples differently:
+look at the single results before using the consensus. Which output columns enter
+which lineage is in `bulkdeconv_lineages()`; human only. The consensus has not been
+checked against samples with known composition.
+
 ## Related tools
 
 <details>

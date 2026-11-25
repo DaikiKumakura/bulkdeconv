@@ -1,7 +1,16 @@
+# bulkdeconv (development)
+
+* `bulkdeconv_consensus()` combines results of several methods into one rank-based
+  score per lineage (10 immune and stromal lineages, plus tumor content), with the
+  agreement between the methods; `bulkdeconv_lineages()` shows the mapping from
+  method outputs to lineages (human). The consensus orders samples within a lineage
+  only and needs at least 5 samples.
+* DualSimplex: the paper's year is 2026 (Genome Biology 27:25), not 2025.
+
 # bulkdeconv 0.3.0
 
 * `dualsimplex`: reference-free deconvolution with DualSimplex (Kleverov et al.
-  2025). It needs no signature or single-cell reference: it factorizes the
+  2026). It needs no signature or single-cell reference: it factorizes the
   expression matrix of the run into `n_components` components (required, 2 to
   20) and returns each sample's share, summing to 1 (`output_class =
   latent_component`). The components are not cell types; assign them

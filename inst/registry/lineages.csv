@@ -1,0 +1,93 @@
+method,species,cell_type,lineage,direction
+quantiseq,human,B.cells,B_cell,1
+quantiseq,human,Macrophages.M1,macrophage,1
+quantiseq,human,Macrophages.M2,macrophage,1
+quantiseq,human,Monocytes,monocyte,1
+quantiseq,human,Neutrophils,neutrophil,1
+quantiseq,human,NK.cells,NK,1
+quantiseq,human,T.cells.CD4,T_CD4,1
+quantiseq,human,T.cells.CD8,T_CD8,1
+quantiseq,human,Dendritic.cells,dendritic,1
+mcp_counter,human,CD8 T cells,T_CD8,1
+mcp_counter,human,B lineage,B_cell,1
+mcp_counter,human,NK cells,NK,1
+mcp_counter,human,Monocytic lineage,monocyte,1
+mcp_counter,human,Myeloid dendritic cells,dendritic,1
+mcp_counter,human,Neutrophils,neutrophil,1
+mcp_counter,human,Endothelial cells,endothelial,1
+mcp_counter,human,Fibroblasts,fibroblast,1
+xcell,human,B-cells,B_cell,1
+xcell,human,CD4+ T-cells,T_CD4,1
+xcell,human,CD8+ T-cells,T_CD8,1
+xcell,human,NK cells,NK,1
+xcell,human,Monocytes,monocyte,1
+xcell,human,Macrophages,macrophage,1
+xcell,human,Neutrophils,neutrophil,1
+xcell,human,DC,dendritic,1
+xcell,human,Fibroblasts,fibroblast,1
+xcell,human,Endothelial cells,endothelial,1
+consensus_tme,human,B_cells,B_cell,1
+consensus_tme,human,T_cells_CD4,T_CD4,1
+consensus_tme,human,T_cells_CD8,T_CD8,1
+consensus_tme,human,NK_cells,NK,1
+consensus_tme,human,Monocytes,monocyte,1
+consensus_tme,human,Macrophages,macrophage,1
+consensus_tme,human,Neutrophils,neutrophil,1
+consensus_tme,human,Dendritic_cells,dendritic,1
+consensus_tme,human,Fibroblasts,fibroblast,1
+consensus_tme,human,Endothelial,endothelial,1
+timer,human,B_cell,B_cell,1
+timer,human,T_cell.CD4,T_CD4,1
+timer,human,T_cell.CD8,T_CD8,1
+timer,human,Neutrophil,neutrophil,1
+timer,human,Macrophage,macrophage,1
+timer,human,DC,dendritic,1
+abis,human,B Naive,B_cell,1
+abis,human,B Memory,B_cell,1
+abis,human,T CD4 Naive,T_CD4,1
+abis,human,T CD4 Memory,T_CD4,1
+abis,human,T CD8 Naive,T_CD8,1
+abis,human,T CD8 Memory,T_CD8,1
+abis,human,NK,NK,1
+abis,human,Monocytes C,monocyte,1
+abis,human,Monocytes NC+I,monocyte,1
+abis,human,Neutrophils LD,neutrophil,1
+abis,human,mDCs,dendritic,1
+abis,human,pDCs,dendritic,1
+spatialdecon_safetme,human,B.naive,B_cell,1
+spatialdecon_safetme,human,B.memory,B_cell,1
+spatialdecon_safetme,human,T.CD4.naive,T_CD4,1
+spatialdecon_safetme,human,T.CD4.memory,T_CD4,1
+spatialdecon_safetme,human,T.CD8.naive,T_CD8,1
+spatialdecon_safetme,human,T.CD8.memory,T_CD8,1
+spatialdecon_safetme,human,NK,NK,1
+spatialdecon_safetme,human,monocytes.C,monocyte,1
+spatialdecon_safetme,human,monocytes.NC.I,monocyte,1
+spatialdecon_safetme,human,macrophages,macrophage,1
+spatialdecon_safetme,human,neutrophils,neutrophil,1
+spatialdecon_safetme,human,pDCs,dendritic,1
+spatialdecon_safetme,human,mDCs,dendritic,1
+spatialdecon_safetme,human,endothelial.cells,endothelial,1
+spatialdecon_safetme,human,fibroblasts,fibroblast,1
+danaher,human,B-cells,B_cell,1
+danaher,human,CD8 T cells,T_CD8,1
+danaher,human,NK cells,NK,1
+danaher,human,Macrophages,macrophage,1
+danaher,human,Neutrophils,neutrophil,1
+danaher,human,DC,dendritic,1
+imsig,human,B cells,B_cell,1
+imsig,human,Macrophages,macrophage,1
+imsig,human,Monocytes,monocyte,1
+imsig,human,Neutrophils,neutrophil,1
+imsig,human,NK cells,NK,1
+bindea,human,B cells,B_cell,1
+bindea,human,CD8 T cells,T_CD8,1
+bindea,human,NK cells,NK,1
+bindea,human,Macrophages,macrophage,1
+bindea,human,Neutrophils,neutrophil,1
+charoentong,human,Macrophage,macrophage,1
+charoentong,human,Neutrophil,neutrophil,1
+charoentong,human,Monocyte,monocyte,1
+charoentong,human,Natural killer cell,NK,1
+estimate,human,estimate,tumor_content,-1
+puree,human,tumor_purity,tumor_content,1

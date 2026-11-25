@@ -181,7 +181,7 @@ M = {
     "dualsimplex": dict(n_out="n_components", secs="1 (30 samples, 2000 genes, K = 3)", engine="external", install=GH + "artyomovlab/DualSimplex@089c982f8ea41e60365675c8e8013d095c3e5eaf",
         species="human|mouse", status="conditional", min_n="5", single="unsupported", indep="no (cohort-derived components)", cohort="yes",
         needs="n_components (2 to 20, required)", options="n_components|seed", cls="latent_component", packages="DualSimplex",
-        source="DualSimplex 1.2 (Kleverov et al. 2025, Genome Biology), github.com/artyomovlab/DualSimplex", version="1.2",
+        source="DualSimplex 1.2 (Kleverov et al. 2026, Genome Biology), github.com/artyomovlab/DualSimplex", version="1.2",
         pin="089c982f8ea41e60365675c8e8013d095c3e5eaf", license="MIT + file LICENSE (DualSimplex)",
         lic_note="MIT; run as the installed package, not copied into bulkdeconv", expr_ev="non-negative expression; TPM used", registration="not required",
         notes="reference-free: no signature or single-cell reference; factorizes this run's expression matrix into n_components components and returns each sample's share, summing to 1; the components are not labelled, so a user must assign cell types afterwards (for example by marker genes); needs more samples than components and, in practice, many samples; random initialisation, fixed by the seed option; compiles C++ code on installation"),
