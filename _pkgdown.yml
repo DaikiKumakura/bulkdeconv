@@ -50,3 +50,8 @@ reference:
       - bulkdeconv
       - bulkdeconv_methods
       - bulkdeconv_install
+  - title: Combine methods
+    desc: "Rank-based consensus across methods, and the lineages it uses."
+    contents:
+      - bulkdeconv_consensus
+      - bulkdeconv_lineages
