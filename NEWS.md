@@ -1,4 +1,4 @@
-# bulkdeconv (development)
+# bulkdeconv 0.4.0
 
 * `bulkdeconv_consensus()` combines results of several methods into one rank-based
   score per lineage (10 immune and stromal lineages, plus tumor content), with the
