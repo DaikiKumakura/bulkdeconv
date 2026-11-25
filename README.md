@@ -7,46 +7,6 @@
 **Cell-type deconvolution of human and mouse tumor bulk RNA-seq: 25
 published methods through one function.**
 
-```r
-res <- bulkdeconv(tpm, expr = "tpm", species = "human", method = "quantiseq")
-res$score   # samples x cell types
-```
-
-- **One interface for 25 methods.** quanTIseq, MCP-counter, xCell, xCell2,
-  ESTIMATE, EPIC, TIMER, GEDIT, PUREE (tumor purity) and others for human; mMCP-counter, seq-ImmuCC, BASE,
-  DCQ and others for mouse. The call and the result look the same for all.
-- **Installing the package is enough for 19 of them.** They are implemented
-  inside bulkdeconv and reproduce the original output; their reference data
-  come with the package. EPIC, DCQ, SSMD, PUREE, mySORT and DualSimplex need one extra install step.
-- **The result says how to read it.** Every result states whether the numbers
-  are fractions, abundance scores or enrichment scores, and what can be
-  compared, with input and signature-coverage checks.
-- **No registration-only methods.** CIBERSORT, CIBERSORTx, EcoTyper and ImmuCC
-  are not included.
-
-**Documentation:** <https://daikikumakura.github.io/bulkdeconv/> ·
-[Releases](https://github.com/DaikiKumakura/bulkdeconv/releases)
-
-## Workflow
-
-```text
-  gene symbol × sample table (TPM; counts for seq-ImmuCC)
-                 │
-   bulkdeconv_methods()      which methods fit the species and the data?
-                 │
-   bulkdeconv(data, expr, species, method, ...)
-                 │
-   res$score      samples × cell types
-   res$metadata   what the numbers are and what may be compared
-   res$qc         input checks and signature coverage
-```
-
-| Function | What it does |
-|---|---|
-| `bulkdeconv()` | Runs one method and returns `score`, `metadata` and `qc` |
-| `bulkdeconv_methods()` | Lists the methods with species, input scale, minimum samples, output kind, licence and whether they are ready to run |
-| `bulkdeconv_install()` | Installs the packages of EPIC, DCQ or SSMD into a private library |
-
 ## Installation
 
 ```r
@@ -82,7 +42,59 @@ res$metadata$comparability   # what may be compared
 res$qc                       # input and signature-coverage checks
 ```
 
+## Documentation
+
+[Function reference](https://daikikumakura.github.io/bulkdeconv/reference/) · [Changelog](https://daikikumakura.github.io/bulkdeconv/news/) · [Releases](https://github.com/DaikiKumakura/bulkdeconv/releases)
+
+## Workflow
+
+<details>
+<summary>Show details</summary>
+
+```r
+res <- bulkdeconv(tpm, expr = "tpm", species = "human", method = "quantiseq")
+res$score   # samples x cell types
+```
+
+- **One interface for 25 methods.** quanTIseq, MCP-counter, xCell, xCell2,
+  ESTIMATE, EPIC, TIMER, GEDIT, PUREE (tumor purity) and others for human; mMCP-counter, seq-ImmuCC, BASE,
+  DCQ and others for mouse. The call and the result look the same for all.
+- **Installing the package is enough for 19 of them.** They are implemented
+  inside bulkdeconv and reproduce the original output; their reference data
+  come with the package. EPIC, DCQ, SSMD, PUREE, mySORT and DualSimplex need one extra install step.
+- **The result says how to read it.** Every result states whether the numbers
+  are fractions, abundance scores or enrichment scores, and what can be
+  compared, with input and signature-coverage checks.
+- **No registration-only methods.** CIBERSORT, CIBERSORTx, EcoTyper and ImmuCC
+  are not included.
+
+**Documentation:** <https://daikikumakura.github.io/bulkdeconv/> ·
+[Releases](https://github.com/DaikiKumakura/bulkdeconv/releases)
+
+```text
+  gene symbol × sample table (TPM; counts for seq-ImmuCC)
+                 │
+   bulkdeconv_methods()      which methods fit the species and the data?
+                 │
+   bulkdeconv(data, expr, species, method, ...)
+                 │
+   res$score      samples × cell types
+   res$metadata   what the numbers are and what may be compared
+   res$qc         input checks and signature coverage
+```
+
+| Function | What it does |
+|---|---|
+| `bulkdeconv()` | Runs one method and returns `score`, `metadata` and `qc` |
+| `bulkdeconv_methods()` | Lists the methods with species, input scale, minimum samples, output kind, licence and whether they are ready to run |
+| `bulkdeconv_install()` | Installs the packages of EPIC, DCQ or SSMD into a private library |
+
+</details>
+
 ## Input
+
+<details>
+<summary>Show details</summary>
 
 One gene symbol per row and one sample per column, with the symbols either in
 the first column or as row names (the table `rsemverse::rsem_read()`
@@ -101,7 +113,12 @@ returns); a numeric matrix with row names also works.
 - Pass the values as they are: do not filter or normalize them first, since
   each method needs its signature genes.
 
+</details>
+
 ## Methods
+
+<details>
+<summary>Show details</summary>
 
 | Method | Species | Built in | Output | Min. samples |
 |---|---|---|---|---|
@@ -136,7 +153,12 @@ use only, and SSMD and mySORT declare no licence; this is reported when run.
 PUREE's model is not bundled: `bulkdeconv_install("puree")` downloads it
 from a recorded commit and checks it.
 
+</details>
+
 ## Method options
+
+<details>
+<summary>Show details</summary>
 
 Options are passed by name through `...`:
 
@@ -151,7 +173,12 @@ Options are passed by name through `...`:
 bulkdeconv(tpm, "tpm", "mouse", "xcell2", preset = "ImmGenData")
 ```
 
+</details>
+
 ## Reading the result
+
+<details>
+<summary>Show details</summary>
 
 - `res$metadata$output_class` says what the numbers are: fractions, abundance
   scores, enrichment scores or marker modules. Only fractions sum to a
@@ -164,6 +191,8 @@ bulkdeconv(tpm, "tpm", "mouse", "xcell2", preset = "ImmGenData")
 - A single sample is accepted only where the method can handle it. For xCell2,
   a one-sample run returns zero for every cell type, because the method
   subtracts the minimum score within the cohort.
+
+</details>
 
 ## Validation
 
@@ -182,10 +211,15 @@ listed in [`inst/COPYRIGHTS`](https://github.com/DaikiKumakura/bulkdeconv/blob/m
 
 ## Related tools
 
+<details>
+<summary>Show details</summary>
+
 - [rsemverse](https://daikikumakura.github.io/rsemverse/) reads RSEM files
   into the gene symbol by sample table that bulkdeconv takes.
 - [rsemflow](https://daikikumakura.github.io/rsemflow/) runs DESeq2, GSEA and
   GSVA from the same RSEM files.
+
+</details>
 
 ## Citation
 
