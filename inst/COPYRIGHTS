@@ -55,8 +55,9 @@ CODE
     library and runs it there. Kleverov D, et al. Genome Biol 2026,
     doi:10.1186/s13059-025-03910-1
   - mySORT: the SVR() function of svr_without_rmse_corr.r in the authors'
-    Docker image lsbnb/mysort_2022 (no licence stated), run with e1071 and
-    preprocessCore installed by bulkdeconv_install("mysort").
+    Docker image lsbnb/mysort_2022 (no licence stated), implemented in
+    bulkdeconv (R/native5.R): quantile normalisation as in preprocessCore, and the
+    linear nu-SVR of libsvm (e1071) solved in the primal with a log-barrier method.
     Chen SH, et al. BMC Bioinformatics 2018, doi:10.1186/s12859-018-2069-6
     Constrained regression: Abbas AR, et al. PLoS One 2009.
   - ESTIMATE: tidyestimate 1.1.1 (GPL >= 2; Aragaki K), which packages the

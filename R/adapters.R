@@ -109,30 +109,10 @@ bd_adapter_fns <- list(
     list(score = mmcp_counter_fit(X, sig), coverage = coverage(sig$Gene.Symbol, X))
   },
   mysort = function(X, opts, ctx) {
-    # SVR() of mySORT (svr_without_rmse_corr.r in the lsbnb/mysort_2022 image):
-    # quantile-normalised mixture, standardised signature, linear nu-SVR with
-    # nu chosen among 0.25, 0.5, 0.75 by RMSE, negative weights set to 0,
-    # weights scaled to 100
+    # mySORT (svr_without_rmse_corr.r in the lsbnb/mysort_2022 image), implemented
+    # in the package (mysort_fit in native5.R): no e1071 or preprocessCore needed
     S <- readRDS(reference_file(ctx, "mysort", "signature_matrix.rds"))
-    Y <- preprocessCore::normalize.quantiles(as.matrix(X))
-    dimnames(Y) <- dimnames(X)
-    genes <- intersect(rownames(S), rownames(Y))
-    S <- S[genes, , drop = FALSE]; Y <- Y[genes, , drop = FALSE]
-    S <- (S - mean(S)) / stats::sd(as.vector(S))
-    fit_w <- function(y, nu) {
-      m <- e1071::svm(S, y, scale = FALSE, type = "nu-regression", kernel = "linear", nu = nu)
-      w <- t(m$coefs) %*% m$SV
-      w[w < 0] <- 0
-      w / sum(w)
-    }
-    out <- t(vapply(seq_len(ncol(Y)), function(i) {
-      y <- Y[, i]; y <- (y - mean(y)) / stats::sd(y)
-      nus <- c(0.25, 0.5, 0.75)
-      rmse <- vapply(nus, function(nu) sqrt(mean((drop(S %*% t(fit_w(y, nu))) - y)^2)), 0)
-      drop(fit_w(y, nus[which.min(rmse)])) * 100
-    }, numeric(ncol(S))))
-    dimnames(out) <- list(colnames(X), colnames(S))
-    list(score = out, coverage = coverage(rownames(S), X))
+    list(score = mysort_fit(X, S), coverage = coverage(rownames(S), X))
   },
   dcq = function(X, opts, ctx) {
     e <- new.env()

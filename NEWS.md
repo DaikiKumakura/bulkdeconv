@@ -1,3 +1,14 @@
+# bulkdeconv 0.5.0
+
+* `mysort` is now implemented in the package: it no longer needs e1071 or preprocessCore
+  and needs no `bulkdeconv_install()`. The quantile normalisation equals preprocessCore
+  (max difference 9e-13). The linear nu-SVR is solved exactly in the primal (a log-barrier
+  method, equal to a quadratic-programming solution to 6e-7), where libsvm stops at a
+  tolerance of 0.001. The weights therefore differ from the e1071 version by up to about
+  1e-3, and when two nu values fit almost equally well the chosen nu can differ: on 4 test
+  samples the outputs differ by 0.07, 0.13, 1.5 and 4.1 percentage points (the last with a
+  changed nu). Twenty methods now work after installing the package.
+
 # bulkdeconv 0.4.3
 
 * The mouse consensus was tried on 6 blood and spleen samples with flow cytometry

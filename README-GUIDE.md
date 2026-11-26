@@ -59,9 +59,9 @@ res$score   # samples x cell types
 - **One interface for 25 methods.** quanTIseq, MCP-counter, xCell, xCell2,
   ESTIMATE, EPIC, TIMER, GEDIT, PUREE (tumor purity) and others for human; mMCP-counter, seq-ImmuCC, BASE,
   DCQ and others for mouse. The call and the result look the same for all.
-- **Installing the package is enough for 19 of them.** They are implemented
+- **Installing the package is enough for 20 of them.** They are implemented
   inside bulkdeconv and reproduce the original output; their reference data
-  come with the package. EPIC, DCQ, SSMD, PUREE, mySORT and DualSimplex need one extra install step.
+  come with the package. EPIC, DCQ, SSMD, PUREE and DualSimplex need one extra install step.
 - **The result says how to read it.** Every result states whether the numbers
   are fractions, abundance scores or enrichment scores, and what can be
   compared, with input and signature-coverage checks.
@@ -136,7 +136,7 @@ returns); a numeric matrix with row names also works.
 | `charoentong` | human | yes | enrichment score | 1 |
 | `bindea` | human | yes | enrichment score | 1 |
 | `puree` | human | no: `bulkdeconv_install("puree")` (downloads the model) | fraction (tumor purity) | 1 |
-| `mysort` | human | no: `bulkdeconv_install("mysort")` | fraction (percent) | 1 |
+| `mysort` | human | yes | fraction (percent) | 1 |
 | `dualsimplex` | human, mouse | no: `bulkdeconv_install("dualsimplex")` | latent component (share per sample) | 5 |
 | `epic` | human | no: `bulkdeconv_install("epic")` | fraction | 1 |
 | `mmcp_counter` | mouse | yes | abundance score | 1 |
@@ -234,8 +234,9 @@ from GitHub, all 15 ran without any extra step, and EPIC, DCQ and SSMD ran after
 noise-free mixtures of its reference profiles, and the Danaher and Charoentong
 scores against their published definitions (mean log2 expression of marker
 genes; ssGSEA). PUREE reproduces the purities of its original test data
-exactly; mySORT matches the authors' example output for 21 of 24 samples (the
-others differ where two of its model settings fit almost equally well). R CMD check passes on Linux, macOS and Windows in CI.
+exactly; mySORT solves the same support vector regression as the original exactly, so it differs from
+the original's output by up to about 1e-3 in the weights, and where two of its model
+settings fit almost equally well the chosen setting can differ (up to 4 percentage points on 4 test samples). R CMD check passes on Linux, macOS and Windows in CI.
 Sources, licences and the few deliberate differences from the originals are
 listed in [`inst/COPYRIGHTS`](https://github.com/DaikiKumakura/bulkdeconv/blob/main/inst/COPYRIGHTS) and the registry
 ([`inst/registry/`](https://github.com/DaikiKumakura/bulkdeconv/tree/main/inst/registry)).

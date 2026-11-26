@@ -103,8 +103,6 @@ test_that("bindea gene sets are the 24 published immune cell types", {
 })
 
 test_that("mysort recovers the composition of mixtures of its signature", {
-  skip_if_not_installed("e1071")
-  skip_if_not_installed("preprocessCore")
   S <- readRDS(ext("mysort", "signature_matrix.rds"))
   expect_identical(dim(S), c(603L, 21L))
   ad <- bulkdeconv:::bd_get_adapter("mysort")
@@ -114,4 +112,42 @@ test_that("mysort recovers the composition of mixtures of its signature", {
   r <- ad(X, list(), list(extdata = dirname(ext("mysort", "signature_matrix.rds")) |> dirname()))$score
   expect_equal(unname(rowSums(r)), rep(100, 4), tolerance = 1e-8)
   expect_gt(stats::cor(as.vector(r), as.vector(t(P)) * 100), 0.8)
+})
+
+test_that("the native quantile normalisation equals preprocessCore, ties included", {
+  skip_if_not_installed("preprocessCore")
+  set.seed(1)
+  M <- matrix(stats::rpois(1000 * 4, 3), 1000, 4)
+  f <- bulkdeconv:::bd_isolate(function(M) quantile_normalize(M))
+  expect_equal(f(M), preprocessCore::normalize.quantiles(M), tolerance = 1e-10, ignore_attr = TRUE)
+})
+
+test_that("the primal nu-SVR matches the exact quadratic-programming solution", {
+  skip_if_not_installed("quadprog")
+  set.seed(7)
+  n <- 60; r <- 4
+  S <- matrix(stats::rnorm(n * r), n, r)
+  y <- as.vector(S %*% c(1, -0.5, 0.3, 0.8)) + stats::rnorm(n, 0, 0.6); y <- (y - mean(y)) / stats::sd(y)
+  K <- tcrossprod(S)
+  f <- bulkdeconv:::bd_isolate(function(S, y, nu) nusvr_linear_w(S, y, nu))
+  for (nu in c(0.25, 0.75)) {
+    D <- rbind(cbind(K, -K), cbind(-K, K)) + diag(1e-8, 2 * n)
+    A <- cbind(c(rep(1, n), rep(-1, n)), rep(1, 2 * n), diag(2 * n), -diag(2 * n))
+    sol <- quadprog::solve.QP(D, c(y, -y), A, c(0, n * nu, rep(0, 2 * n), rep(-1, 2 * n)), meq = 2)$solution
+    w_qp <- as.vector(crossprod(S, sol[1:n] - sol[(n + 1):(2 * n)]))
+    expect_lt(max(abs(f(S, y, nu) - w_qp)), 1e-5)
+  }
+})
+
+test_that("mysort stays close to libsvm (e1071) on the same input", {
+  skip_if_not_installed("e1071")
+  set.seed(2)
+  S <- readRDS(ext("mysort", "signature_matrix.rds"))
+  P <- matrix(stats::rexp(ncol(S) * 3), ncol(S)); P <- t(t(P) / colSums(P))
+  X <- S %*% P + matrix(stats::rnorm(nrow(S) * 3, 0, 0.05 * stats::sd(S)), nrow(S)); colnames(X) <- paste0("s", 1:3)
+  f <- bulkdeconv:::bd_isolate(function(S, y, nu) nusvr_linear_w(S, y, nu))
+  Z <- (S - mean(S)) / stats::sd(S)
+  y <- X[, 1]; y <- (y - mean(y)) / stats::sd(y)
+  m <- e1071::svm(Z, y, scale = FALSE, type = "nu-regression", kernel = "linear", nu = 0.5)
+  expect_lt(max(abs(f(Z, y, 0.5) - as.vector(t(m$coefs) %*% m$SV))), 5e-3)
 })

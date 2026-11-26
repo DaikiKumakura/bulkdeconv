@@ -19,9 +19,9 @@ counts for \code{seqimmucc}) and returns \code{score} (samples x cell types),
 \code{metadata} (what the numbers are and what may be compared) and \code{qc}.
 }
 
-Nineteen methods are implemented in the package and run after installing
-it; their reference data come with the package. EPIC, DCQ, SSMD and mySORT run
-from their original packages (or, for mySORT, with the packages it uses),
+Twenty methods are implemented in the package and run after installing
+it; their reference data come with the package. EPIC, DCQ, SSMD and DualSimplex run
+from their original packages,
 and PUREE needs its model downloaded: install them once with
 \code{\link[=bulkdeconv_install]{bulkdeconv_install()}} into a private library.
 }
