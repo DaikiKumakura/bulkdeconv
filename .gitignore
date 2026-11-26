@@ -8,3 +8,4 @@ bulkdeconv_*.tar.gz
 /docs/
 /AGENTS.md
 validation/consensus-pbmc/data/
+validation/consensus-mouse/data/

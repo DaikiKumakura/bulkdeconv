@@ -1,3 +1,11 @@
+# bulkdeconv 0.4.3
+
+* The mouse consensus was tried on 6 blood and spleen samples with flow cytometry
+  (Petitprez et al. 2020 data; `validation/consensus-mouse/`). The consensus matched or
+  beat the median single method in 4 of 5 lineages (three by 0.01 or less) and the best
+  method in none; with 6 non-independent samples the intervals cover almost the whole range,
+  so the mouse table remains effectively unvalidated. README wording updated.
+
 # bulkdeconv 0.4.2
 
 * `bulkdeconv_consensus()` and `bulkdeconv_lineages()` now cover mouse: `mmcp_counter`,
