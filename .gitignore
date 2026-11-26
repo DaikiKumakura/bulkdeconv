@@ -7,3 +7,4 @@ bulkdeconv_*.tar.gz
 /_site/
 /docs/
 /AGENTS.md
+validation/consensus-pbmc/data/

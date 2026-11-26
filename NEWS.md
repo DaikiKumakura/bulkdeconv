@@ -1,3 +1,11 @@
+# bulkdeconv 0.4.1
+
+* The consensus was checked on 9 blood mixtures with flow cytometry (GEO
+  GSE107572; `validation/consensus-pbmc/`). It correlated with flow at least as well
+  as the median single method in 6 of 7 lineages and at least as well as the best
+  method in 2 of 7; the intervals are wide, no tumor samples were tested, and the
+  agreement between methods did not predict accuracy. README wording updated.
+
 # bulkdeconv 0.4.0
 
 * `bulkdeconv_consensus()` combines results of several methods into one rank-based

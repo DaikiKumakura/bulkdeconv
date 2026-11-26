@@ -210,7 +210,7 @@ are added. It needs at least 5 samples, and a lineage appears only when two meth
 cover it. Low or negative agreement means the methods order the samples differently:
 look at the single results before using the consensus. Which output columns enter
 which lineage is in `bulkdeconv_lineages()`; human only. The consensus has not been
-checked against samples with known composition.
+checked on a small set of samples with known composition: 9 blood mixtures with flow cytometry (GEO GSE107572), where the consensus correlated with flow at least as well as the median method in 6 of 7 lineages, with wide uncertainty and no tumor samples.
 
 ## Related tools
 

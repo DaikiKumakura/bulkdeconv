@@ -37,7 +37,7 @@ res$qc                       # input and signature-coverage checks
 
 - **Validation:** Compared built-in methods with reference implementations and tested representative external methods and synthetic mixtures.
 - **Results:** The first 15 built-in methods reproduced the recorded reference outputs in tests.
-- **Limitations:** Method scores have different units and interpretations; the consensus score has not been validated against known mixtures.
+- **Limitations:** Method scores have different units and interpretations; the consensus score was checked only on 9 blood mixtures with flow cytometry (seven lineages; small and not tumor tissue), see `validation/consensus-pbmc/README.md`.
 - **Reproduction:** [inst/COPYRIGHTS](https://github.com/DaikiKumakura/bulkdeconv/blob/main/inst/COPYRIGHTS).
 
 ## Citation

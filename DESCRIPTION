@@ -1,7 +1,7 @@
 Package: bulkdeconv
 Type: Package
 Title: Cell-Type Deconvolution of Tumor Bulk RNA-Seq Through One Function
-Version: 0.4.0
+Version: 0.4.1
 Authors@R: person("Daiki", "Kumakura", role = c("aut", "cre"),
     email = "55353329+DaikiKumakura@users.noreply.github.com")
 Description: Runs 24 published cell-type deconvolution and cell-abundance
