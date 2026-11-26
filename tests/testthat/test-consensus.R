@@ -64,3 +64,19 @@ test_that("the lineage table only names real outputs of known methods", {
   expect_true(all(tab$direction %in% c(1L, -1L)))
   expect_false(anyDuplicated(tab[c("method", "cell_type")]) > 0)
 })
+
+test_that("the consensus works for mouse results", {
+  n <- 8; s <- paste0("M", seq_len(n)); set.seed(4)
+  z <- seq_len(n) + rnorm(n, 0, 0.1)
+  r <- list(
+    fake_result("mmcp_counter", cbind(`CD8 T cells` = z^2, Fibroblasts = runif(n)) |> `rownames<-`(s), "mouse"),
+    fake_result("immucellai_mouse", cbind(CD8_T_cell = z / 10, Infiltration_score = runif(n)) |> `rownames<-`(s), "mouse"),
+    fake_result("seqimmucc", cbind(`CD8 T Cells` = -z, `B Cells` = runif(n)) |> `rownames<-`(s), "mouse"))
+  cons <- bulkdeconv_consensus(r)
+  expect_equal(colnames(cons$score), "T_CD8")
+  expect_equal(unname(cons$n_methods), 3L)
+  expect_true(any(cons$dropped$what == "lineage" & cons$dropped$name == "fibroblast"))
+  tab <- bulkdeconv_lineages("mouse")
+  expect_true(all(tab$species == "mouse"))
+  expect_setequal(unique(tab$method), c("mmcp_counter", "immucellai_mouse", "seqimmucc", "base"))
+})

@@ -159,7 +159,9 @@ print.bulkdeconv_consensus <- function(x, ...) {
 #' The table that maps the output columns of each method to the lineages of
 #' [bulkdeconv_consensus()].
 #'
-#' @param species `"human"` (the only species with a mapping so far).
+#' @param species `"human"` or `"mouse"`. The mouse table covers `mmcp_counter`,
+#'   `immucellai_mouse`, `seqimmucc` and `base`; fibroblast and endothelial have
+#'   only one mouse method, so they do not appear unless `min_methods = 1`.
 #' @return A data frame with `method`, `species`, `cell_type` (the output
 #'   column), `lineage`, and `direction` (1, or -1 when a higher method score
 #'   means less of the lineage).

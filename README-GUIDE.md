@@ -209,7 +209,7 @@ not a fraction, it cannot be compared between lineages, and it changes when samp
 are added. It needs at least 5 samples, and a lineage appears only when two methods
 cover it. Low or negative agreement means the methods order the samples differently:
 look at the single results before using the consensus. Which output columns enter
-which lineage is in `bulkdeconv_lineages()`; human only. The consensus has not been
+which lineage is in `bulkdeconv_lineages()` (human, and mouse for four methods; the mouse mapping has not been checked against samples of known composition). The consensus has not been
 checked on a small set of samples with known composition: 9 blood mixtures with flow cytometry (GEO GSE107572), where the consensus correlated with flow at least as well as the median method in 6 of 7 lineages, with wide uncertainty and no tumor samples.
 
 ## Related tools

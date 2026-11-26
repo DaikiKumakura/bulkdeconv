@@ -91,3 +91,35 @@ charoentong,human,Monocyte,monocyte,1
 charoentong,human,Natural killer cell,NK,1
 estimate,human,estimate,tumor_content,-1
 puree,human,tumor_purity,tumor_content,1
+mmcp_counter,mouse,CD8 T cells,T_CD8,1
+mmcp_counter,mouse,NK cells,NK,1
+mmcp_counter,mouse,B derived,B_cell,1
+mmcp_counter,mouse,Monocytes,monocyte,1
+mmcp_counter,mouse,Neutrophils,neutrophil,1
+mmcp_counter,mouse,Endothelial cells,endothelial,1
+mmcp_counter,mouse,Fibroblasts,fibroblast,1
+immucellai_mouse,mouse,B_cell,B_cell,1
+immucellai_mouse,mouse,Dendritic_cells,dendritic,1
+immucellai_mouse,mouse,Macrophage,macrophage,1
+immucellai_mouse,mouse,Monocytes,monocyte,1
+immucellai_mouse,mouse,NK,NK,1
+immucellai_mouse,mouse,CD4_T_cell,T_CD4,1
+immucellai_mouse,mouse,CD8_T_cell,T_CD8,1
+immucellai_mouse,mouse,Neutrophils,neutrophil,1
+seqimmucc,mouse,B Cells,B_cell,1
+seqimmucc,mouse,CD4 T Cells,T_CD4,1
+seqimmucc,mouse,CD8 T Cells,T_CD8,1
+seqimmucc,mouse,Dendritic Cells,dendritic,1
+seqimmucc,mouse,Macrophages,macrophage,1
+seqimmucc,mouse,Monocytes,monocyte,1
+seqimmucc,mouse,Neutrophils,neutrophil,1
+seqimmucc,mouse,NK Cells,NK,1
+base,mouse,B_cells,B_cell,1
+base,mouse,Dendritic_cells,dendritic,1
+base,mouse,Macrophages,macrophage,1
+base,mouse,NK_cells,NK,1
+base,mouse,CD4_Naive,T_CD4,1
+base,mouse,CD4_Memory,T_CD4,1
+base,mouse,CD8_Eff,T_CD8,1
+base,mouse,CD8_Memory,T_CD8,1
+base,mouse,CD8_Naive,T_CD8,1

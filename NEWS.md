@@ -1,3 +1,9 @@
+# bulkdeconv 0.4.2
+
+* `bulkdeconv_consensus()` and `bulkdeconv_lineages()` now cover mouse: `mmcp_counter`,
+  `immucellai_mouse`, `seqimmucc` and `base` (8 lineages; fibroblast and endothelial have
+  one mouse method each). Not checked against samples of known composition.
+
 # bulkdeconv 0.4.1
 
 * The consensus was checked on 9 blood mixtures with flow cytometry (GEO

@@ -7,7 +7,9 @@
 bulkdeconv_lineages(species = "human")
 }
 \arguments{
-\item{species}{\code{"human"} (the only species with a mapping so far).}
+\item{species}{\code{"human"} or \code{"mouse"}. The mouse table covers \code{mmcp_counter},
+\code{immucellai_mouse}, \code{seqimmucc} and \code{base}; fibroblast and endothelial have
+only one mouse method, so they do not appear unless \code{min_methods = 1}.}
 }
 \value{
 A data frame with \code{method}, \code{species}, \code{cell_type} (the output
