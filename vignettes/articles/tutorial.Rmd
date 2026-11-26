@@ -1,0 +1,199 @@
+---
+title: "Estimate immune and stromal cells from a bulk RNA-seq table"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+This page goes from a gene-by-sample TPM table to cell-type scores, and then to a consensus across methods.
+To show what comes out, it builds a small synthetic table in which the answer is known: samples S1 to S4 have
+six times the expression of T cell marker genes, and S5 to S8 have six times the expression of B cell marker
+genes. All output below comes from running the code.
+
+## 1. The table you need
+
+One row per gene symbol, one column per sample, TPM values that are not log-transformed. A data frame (symbols
+in the first column) or a numeric matrix (symbols as row names) both work. From RSEM files,
+[rsemverse](https://daikikumakura.github.io/rsemverse/) makes exactly this table:
+
+```{r}
+tpm <- rsemverse::rsem_read("rsem", "metadata.csv", species = "human", expr = "tpm")
+```
+
+Here is the synthetic one:
+
+```{r}
+library(bulkdeconv)
+
+markers <- readRDS(system.file("extdata", "mcp_counter", "markers.rds", package = "bulkdeconv"))
+danaher <- readRDS(system.file("extdata", "danaher", "markers.rds", package = "bulkdeconv"))
+mcp_T <- markers[["HUGO symbols"]][markers[["Cell population"]] == "T cells"]
+mcp_B <- markers[["HUGO symbols"]][markers[["Cell population"]] == "B lineage"]
+t_genes <- unique(c(mcp_T, danaher[["T-cells"]]))
+b_genes <- unique(c(mcp_B, danaher[["B-cells"]]))
+
+genes <- unique(c(markers[["HUGO symbols"]], unlist(danaher), sprintf("GENE%03d", 1:300)))
+set.seed(7)
+n <- 8
+tpm <- matrix(rlnorm(length(genes) * n, 2, 0.8), length(genes), n,
+              dimnames = list(genes, paste0("S", 1:n)))
+tpm[t_genes, 1:4] <- tpm[t_genes, 1:4] * 6     # T cell rich
+tpm[b_genes, 5:8] <- tpm[b_genes, 5:8] * 6     # B cell rich
+tpm <- sweep(tpm, 2, colSums(tpm), "/") * 1e6  # TPM
+dim(tpm)
+```
+
+```text
+[1] 454   8
+```
+
+## 2. Choose a method
+
+```{r}
+methods <- bulkdeconv_methods()
+methods[methods$species %in% c("human", "human|mouse"),
+        c("method", "status", "expr_accepted", "min_samples_n", "output_class")]
+```
+
+The table lists 25 methods. The columns that matter first:
+
+| Column | Meaning |
+|---|---|
+| `status` | `ready` runs now. `conditional` needs something more: a cancer type, a tissue, or at least a few samples (see `min_samples_n`). |
+| `expr_accepted` | `tpm` for all but `seqimmucc`, which takes counts. |
+| `min_samples_n` | The fewest samples the method accepts. |
+| `output_class` | What the numbers are: `fraction`, `abundance_score`, `enrichment_score` and so on. |
+
+A fraction (quanTIseq, EPIC) is a share of cells. A score (MCP-counter, xCell) has arbitrary units: it orders
+samples for one cell type, and it cannot be compared between cell types. Choose by what you want to say, not by
+which method gives the larger numbers.
+
+## 3. Run one method
+
+```{r}
+res <- bulkdeconv(tpm, expr = "tpm", species = "human", method = "mcp_counter")
+round(res$score[, c("T cells", "B lineage", "CD8 T cells")], 1)
+```
+
+```text
+   T cells B lineage CD8 T cells
+S1 18112.0    1527.7       561.3
+S2  9482.9    2754.1      1267.3
+S3 10151.9    1765.4      1778.3
+S4 13443.7    1398.9      2457.3
+S5  1242.4   11681.0      1688.9
+S6  2820.8    6488.9      1225.2
+S7  2307.1   15813.3       501.9
+S8  1726.4   12626.9      1203.3
+```
+
+The T cell score is high in S1 to S4 and the B lineage score in S5 to S8, as built. Read down a column, not
+across a row: `18112` against `1527.7` in S1 says nothing about more T cells than B cells.
+
+The result says how to read itself:
+
+```{r}
+res$metadata$output_class     # "abundance_score"
+res$metadata$comparability    # "arbitrary units; comparable across samples for one cell type, not across cell types"
+res$qc$signature_genes        # 111 marker genes in the method
+res$qc$signature_genes_found  # 111 of them are in your table
+```
+
+## 4. Check the coverage
+
+A method can only use the genes your table has. `qc` counts them. Remove six T cell marker genes and run again:
+
+```{r}
+part <- tpm[!rownames(tpm) %in% mcp_T[1:6], ]
+rp <- bulkdeconv(part, "tpm", "human", "mcp_counter")
+rp$qc[c("signature_genes", "signature_genes_found")]
+```
+
+```text
+$signature_genes
+[1] 111
+
+$signature_genes_found
+[1] 105
+```
+
+Look at this before you trust a score: a method that finds half of its signature genes still returns numbers.
+
+## 5. What the input checks refuse
+
+`bulkdeconv()` stops with a message that says what to change, instead of returning numbers that mean nothing:
+
+| You pass | Message |
+|---|---|
+| `expr = "count"` to a TPM method | `Method 'mcp_counter' accepts expr = "tpm", not "count". Convert counts to TPM (rsemverse::rsem_read(expr = "tpm")) instead.` |
+| log-transformed or negative values | `data` contains negative values (40). Counts and TPM are non-negative; log-transformed or batch-corrected data is not supported. |
+| a gene symbol twice | `1 gene symbol(s) occur more than once (e.g. CD28). Merge duplicates before calling bulkdeconv(); ...` |
+| mouse symbols as `species = "human"` (or the reverse) | `species` is "mouse" but only 0% of the gene symbols contain lower-case letters; human symbols are upper case (e.g. ACTB). |
+| a method whose packages are not installed | `The packages for 'epic' are not installed. Run bulkdeconv_install("epic") first.` |
+
+The last one is the three methods that run from their original packages (EPIC, DCQ, SSMD):
+`bulkdeconv_install("epic")` installs them once into a private library, so your own library is untouched.
+
+## 6. Two methods, one consensus
+
+Different methods disagree on the numbers, so a single method is weak evidence. Run a second one, then combine:
+
+```{r}
+r2 <- bulkdeconv(tpm, "tpm", "human", "danaher")
+round(r2$score[, c("T-cells", "B-cells")], 2)
+```
+
+```text
+   T-cells B-cells
+S1   12.43   10.39
+S2   12.78   10.38
+S3   12.35   10.93
+S4   13.01   10.10
+S5   11.01   12.98
+S6   10.50   12.50
+S7   10.37   13.57
+S8    9.96   13.31
+```
+
+```{r}
+cons <- bulkdeconv_consensus(list(mcp_counter = res, danaher = r2))
+round(cons$score, 2)
+round(cons$agreement, 2)
+```
+
+```text
+   B_cell dendritic neutrophil   NK T_CD8
+S1   0.25      0.31       0.38 0.44  0.19
+S2   0.31      0.38       0.75 0.56  0.50
+S3   0.38      0.69       0.56 0.62  0.75
+S4   0.06      0.56       0.06 0.88  0.75
+S5   0.69      0.19       0.75 0.50  0.81
+S6   0.56      0.62       0.75 0.44  0.62
+S7   0.94      0.50       0.31 0.50  0.06
+S8   0.81      0.75       0.44 0.06  0.31
+
+    B_cell  dendritic neutrophil         NK      T_CD8
+      0.93      -0.19       0.33       0.10       0.71
+```
+
+The consensus replaces every method's numbers by their percentile rank among the samples, averages the ranks
+of the columns of one cell lineage within a method, and then averages across methods
+([`?bulkdeconv_consensus`](https://daikikumakura.github.io/bulkdeconv/reference/bulkdeconv_consensus.html)).
+So `score` orders the samples within one lineage (the B cell column is highest for S5 to S8); it is not a
+fraction, it cannot be compared between lineages, and adding a sample changes every value.
+
+`agreement` is the mean Spearman correlation between the methods that cover the lineage. It is high for B cells
+(0.93) and low for dendritic cells (−0.19): in this table nothing was changed for dendritic cell genes, so the
+two methods rank random noise differently. A low agreement tells you not to read that column. Which output
+columns entered which lineage is in `cons$sources`, and what was left out and why is in `cons$dropped`: here,
+endothelial, fibroblast, macrophage and monocyte were each covered by only one method, and the consensus
+needs two.
+
+## 7. Next
+
+- `bulkdeconv_methods()` shows the licence and version of each method, and `bulkdeconv_lineages()` how output
+  columns map to lineages.
+- Methods with a minimum sample count (`min_samples_n`), or a cancer type (`cancer_type = ` for TIMER), are
+  explained in `?bulkdeconv`.
+- [Sources and licences of the methods](https://github.com/DaikiKumakura/bulkdeconv/blob/main/inst/COPYRIGHTS).

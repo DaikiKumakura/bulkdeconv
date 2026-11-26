@@ -55,3 +55,9 @@ reference:
     contents:
       - bulkdeconv_consensus
       - bulkdeconv_lineages
+
+articles:
+  - title: Articles
+    navbar: ~
+    contents:
+      - articles/tutorial

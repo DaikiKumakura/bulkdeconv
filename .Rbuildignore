@@ -14,3 +14,4 @@
 ^_site$
 ^CITATION\.cff$
 ^README-GUIDE\.md$
+^vignettes/articles$
