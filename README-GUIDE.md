@@ -1,6 +1,8 @@
 # bulkdeconv guide
 
 <!-- badges: start -->
+[![R-universe](https://daikikumakura.r-universe.dev/badges/bulkdeconv)](https://daikikumakura.r-universe.dev/bulkdeconv)
+[![R-CMD-check](https://github.com/DaikiKumakura/bulkdeconv/actions/workflows/r-check.yaml/badge.svg)](https://github.com/DaikiKumakura/bulkdeconv/actions/workflows/r-check.yaml)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24210481.svg)](https://doi.org/10.5281/zenodo.24210481)
 <!-- badges: end -->
 
